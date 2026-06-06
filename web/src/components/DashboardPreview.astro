@@ -1,0 +1,95 @@
+---
+const riskItems = [
+  { label: 'Tax Residency Transition', level: 'critical', bar: 'bg-error-container' },
+  { label: 'Spouse Visa Processing', level: 'high', bar: 'bg-amber-100' },
+  { label: 'Nursery Registration', level: 'high', bar: 'bg-amber-100' },
+  { label: 'Bank Account Setup', level: 'low', bar: 'bg-surface-container' },
+];
+
+const levelStyles: Record<string, string> = {
+  critical: 'bg-error-container text-on-error-container',
+  high: 'bg-amber-200 text-amber-900',
+  low: 'bg-surface-container-high text-on-surface-variant',
+};
+
+const levelLabels: Record<string, string> = {
+  critical: 'Critical',
+  high: 'High',
+  low: 'Low',
+};
+
+const timeline = [
+  { month: 'Month 1', tasks: ['Visa Applications', 'Document Apostille'] },
+  { month: 'Month 2', tasks: ['Tax Structuring', 'Bank Account Setup'] },
+  { month: 'Month 3', tasks: ['Housing & Schooling', 'Tax Registration'] },
+];
+---
+
+<div class="dashboard-window">
+  <div class="flex items-center justify-between border-b border-outline-variant/50 bg-surface-container-high px-6 py-4">
+    <div class="flex items-center gap-3">
+      <span class="text-label-md text-on-surface font-semibold">Lifeport Plan Dashboard</span>
+    </div>
+    <div class="flex gap-1.5" aria-hidden="true">
+      <span class="h-2.5 w-2.5 rounded-full bg-outline-variant/60"></span>
+      <span class="h-2.5 w-2.5 rounded-full bg-outline-variant/60"></span>
+      <span class="h-2.5 w-2.5 rounded-full bg-outline-variant/60"></span>
+    </div>
+  </div>
+
+  <div class="dashboard-window-body">
+    <div class="grid gap-10 md:grid-cols-2">
+      <div>
+        <div class="flex items-baseline justify-between mb-5">
+          <h4 class="text-label-md text-on-surface font-semibold">Risk Map</h4>
+          <span class="text-label-sm text-outline">Updated today</span>
+        </div>
+        <ul class="space-y-3">
+          {
+            riskItems.map((item) => (
+              <li
+                class:list={[
+                  'flex items-center justify-between rounded-DEFAULT px-4 py-3.5',
+                  item.bar,
+                ]}
+              >
+                <span class="text-body-md text-on-surface font-medium">{item.label}</span>
+                <span
+                  class:list={[
+                    'rounded-full px-2.5 py-0.5 text-label-sm font-semibold uppercase tracking-wide',
+                    levelStyles[item.level],
+                  ]}
+                >
+                  {levelLabels[item.level]}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-label-md text-on-surface font-semibold mb-5">Timeline</h4>
+        <div class="relative space-y-7 pl-6">
+          <div class="absolute left-2 top-2 bottom-2 w-0.5 bg-primary-fixed-dim/60" aria-hidden="true"></div>
+          {
+            timeline.map((entry) => (
+              <div class="relative">
+                <div
+                  class="absolute -left-6 top-1.5 h-3.5 w-3.5 rounded-full border-2 border-primary bg-surface-container-lowest"
+                  aria-hidden="true"
+                />
+                <p class="text-label-md text-primary font-semibold">{entry.month}</p>
+                <ul class="mt-2 space-y-1.5">
+                  {entry.tasks.map((task) => (
+                    <li class="text-body-md text-on-surface-variant">{task}</li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

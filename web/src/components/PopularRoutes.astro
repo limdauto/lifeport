@@ -1,0 +1,70 @@
+---
+const routes = [
+  {
+    label: 'Popular Route',
+    title: 'UK to Dubai',
+    description: 'Tax-efficient relocation for professionals and entrepreneurs.',
+  },
+  {
+    label: 'Use-Case',
+    title: 'Professionals moving to the UK',
+    description: 'Skilled worker visas, banking, and first 90-day settlement.',
+  },
+  {
+    label: 'Complex Move',
+    title: 'Families moving to the UK',
+    description: 'Schools, spouse visas, and multi-dependency planning.',
+  },
+];
+---
+
+<section id="routes" class="section">
+  <div class="container-page">
+    <h2 class="text-headline-lg text-on-surface">Popular Routes</h2>
+
+    <div class="mt-10 space-y-4">
+      {
+        routes.map((route) => (
+          <a
+            href="#"
+            class="group flex items-center gap-6 rounded-xl bg-tertiary-fixed p-8 transition-colors hover:bg-tertiary-fixed-dim"
+          >
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-surface-container-lowest text-primary shadow-soft">
+              <svg
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                aria-hidden="true"
+              >
+                <path d="M3 12h18M12 3v18" stroke-linecap="round" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <div class="flex-1">
+              <p class="text-label-sm text-on-tertiary-fixed-variant font-semibold tracking-wide">
+                {route.label}
+              </p>
+              <h3 class="text-headline-md text-on-surface mt-1 group-hover:text-primary transition-colors">
+                {route.title}
+              </h3>
+              <p class="text-body-md text-on-surface-variant mt-1">{route.description}</p>
+            </div>
+            <svg
+              class="hidden h-5 w-5 shrink-0 text-primary transition-transform group-hover:translate-x-1 md:block"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              aria-hidden="true"
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

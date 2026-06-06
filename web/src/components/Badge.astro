@@ -1,0 +1,17 @@
+---
+interface Props {
+  variant?: 'default' | 'friction' | 'accent';
+}
+
+const { variant = 'default' } = Astro.props;
+
+const styles = {
+  default: 'bg-tertiary-fixed text-on-tertiary-fixed-variant',
+  friction: 'bg-error-container text-on-error-container',
+  accent: 'bg-primary-fixed text-on-primary-fixed-variant',
+};
+---
+
+<span class:list={['chip', styles[variant]]}>
+  <slot />
+</span>

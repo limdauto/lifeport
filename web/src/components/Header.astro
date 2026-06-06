@@ -1,0 +1,29 @@
+---
+import Button from './Button.astro';
+import Logo from './Logo.astro';
+---
+
+<header class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md">
+  <div class="container-page flex h-16 items-center justify-between md:h-20">
+    <a href="/" class="transition-opacity hover:opacity-80">
+      <Logo size="sm" />
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+      <a href="/#routes" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        >Relocation Routes</a
+      >
+      <a href="/#planner" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        >How It Works</a
+      >
+      <a href="/professionals" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        >For Professionals</a
+      >
+      <a href="/#packages" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        >Pricing</a
+      >
+    </nav>
+
+    <Button href="#hero" size="sm">Build my Plan</Button>
+  </div>
+</header>

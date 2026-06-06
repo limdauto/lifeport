@@ -1,0 +1,69 @@
+---
+import Logo from './Logo.astro';
+
+const domains = ['Immigration', 'Tax', 'Banking', 'Housing'];
+const company = ['Our Mission', 'About Us', 'Contact'];
+const legal = ['Legal', 'Compliance', 'Privacy'];
+---
+
+<footer class="bg-surface-container-low">
+  <div class="container-page section">
+    <div class="grid gap-12 md:grid-cols-4">
+      <div class="md:col-span-1">
+        <a href="/" class="inline-block transition-opacity hover:opacity-80">
+          <Logo size="sm" />
+        </a>
+        <p class="mt-6 text-label-sm text-on-surface-variant leading-relaxed">
+          Lifeport is not a replacement for regulated legal, tax, or financial advice. Always consult
+          qualified professionals for your specific situation.
+        </p>
+        <p class="mt-4 text-label-sm text-outline">&copy; 2024 Lifeport</p>
+      </div>
+
+      <div>
+        <h3 class="text-label-md text-on-surface mb-4">Domains</h3>
+        <ul class="space-y-3">
+          {
+            domains.map((item) => (
+              <li>
+                <a href="#" class="text-body-md text-on-surface-variant hover:text-primary transition-colors">
+                  {item}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-label-md text-on-surface mb-4">Company</h3>
+        <ul class="space-y-3">
+          {
+            company.map((item) => (
+              <li>
+                <a href="#" class="text-body-md text-on-surface-variant hover:text-primary transition-colors">
+                  {item}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="text-label-md text-on-surface mb-4">Legal</h3>
+        <ul class="space-y-3">
+          {
+            legal.map((item) => (
+              <li>
+                <a href="#" class="text-body-md text-on-surface-variant hover:text-primary transition-colors">
+                  {item}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

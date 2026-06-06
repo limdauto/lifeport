@@ -1,0 +1,75 @@
+---
+import DashboardPreview from './DashboardPreview.astro';
+
+const steps = [
+  {
+    icon: 'profile',
+    title: 'Profile',
+    description:
+      'Build your relocation profile across immigration, tax, housing, and family needs.',
+  },
+  {
+    icon: 'plan',
+    title: 'Plan',
+    description:
+      'Get a unified timeline identifying critical path dependencies and friction points.',
+  },
+  {
+    icon: 'execution',
+    title: 'Execution',
+    description:
+      'Prepare structured packets for experts to execute your move smoothly.',
+  },
+];
+---
+
+<section id="planner" class="section bg-surface-container-low">
+  <div class="container-page">
+    <div class="max-w-2xl text-center mx-auto">
+      <span class="planner-tag">The Planner</span>
+      <h2 class="text-headline-lg text-on-surface mt-6">Lifeport plans the chaos</h2>
+      <p class="text-body-lg text-on-surface-variant mt-4">
+        A single dashboard with your Risk Map, dependency timeline, and expert-ready packets —
+        so you always know what matters next.
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-10 md:grid-cols-3">
+      {
+        steps.map((step, i) => (
+          <div class="text-center">
+            <div class="planner-step-icon mx-auto">
+              {step.icon === 'profile' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M6 20v-1a6 6 0 0112 0v1" stroke-linecap="round" />
+                  <path d="M17 8l1 1 2-2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              )}
+              {step.icon === 'plan' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M9 6h11M9 12h11M9 18h11" stroke-linecap="round" />
+                  <path d="M4 6h.01M4 12h.01M4 18h.01" stroke-linecap="round" stroke-width="2" />
+                </svg>
+              )}
+              {step.icon === 'execution' && (
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path d="M4.5 16.5c1.5-4 4.5-7 7.5-9 3 2 6 5 7.5 9" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M12 7.5V4M10 5l2-1.5L14 5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M6 18h12" stroke-linecap="round" />
+                </svg>
+              )}
+            </div>
+            <p class="text-label-sm text-primary font-semibold mt-5">Step {i + 1}</p>
+            <h3 class="text-headline-md text-on-surface mt-1">{step.title}</h3>
+            <p class="text-body-md text-on-surface-variant mt-2">{step.description}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-16">
+      <DashboardPreview />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,103 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PlanCta from '../components/PlanCta.astro';
+import SetupPackages from '../components/SetupPackages.astro';
+import { PLAN_DELIVERY_NOTE } from '../constants/copy';
+
+const plans = [
+  {
+    name: 'Lifeport Plan',
+    price: '£149',
+    period: 'one-off',
+    description: 'Your personalised relocation plan as a PDF — risk map, timeline, dependencies, and expert-ready summaries.',
+    features: [
+      'Personalised to your route and family',
+      'Risk map with priority flags',
+      'Sequenced 3-month timeline',
+      'Document and action checklists',
+      'Expert-ready summary packets',
+      'Delivered within 5 working days',
+    ],
+    featured: true,
+  },
+  {
+    name: 'Plan + Expert Review',
+    price: '£399',
+    period: 'one-off',
+    description: 'Your Lifeport Plan PDF plus a review session with a vetted relocation specialist.',
+    features: [
+      'Everything in Lifeport Plan',
+      '1× specialist review of your plan',
+      'Annotated risk and priority report',
+      'Follow-up summary by email',
+    ],
+    featured: false,
+  },
+];
+---
+
+<Layout
+  title="Lifeport — Pricing"
+  description="Order your personalised Lifeport Plan PDF. One clear plan for your move, prepared by our team and delivered within 5 working days."
+>
+  <Header />
+  <main>
+    <section class="section">
+      <div class="container-page">
+        <div class="max-w-2xl mx-auto text-center">
+          <span class="planner-tag">Pricing</span>
+          <h1 class="text-display text-on-surface mt-6">One plan. One price. No subscriptions.</h1>
+          <p class="text-body-lg text-on-surface-variant mt-4">
+            You tell us about your move. We prepare your personalised Lifeport Plan PDF. You act on
+            it — or hand it straight to your lawyer, accountant, or relocation adviser.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-8 lg:grid-cols-2 max-w-4xl mx-auto">
+          {
+            plans.map((plan) => (
+              <article
+                class:list={[
+                  'card flex flex-col',
+                  plan.featured && 'ring-2 ring-primary/25 shadow-soft-lg',
+                ]}
+              >
+                {plan.featured && (
+                  <span class="planner-tag self-start mb-4">Most popular</span>
+                )}
+                <h2 class="text-headline-md text-on-surface">{plan.name}</h2>
+                <p class="mt-2">
+                  <span class="text-display text-primary">{plan.price}</span>
+                  <span class="text-body-md text-on-surface-variant ml-2">{plan.period}</span>
+                </p>
+                <p class="text-body-md text-on-surface-variant mt-4">{plan.description}</p>
+                <ul class="mt-6 flex-1 space-y-3">
+                  {plan.features.map((feature) => (
+                    <li class="flex items-center gap-2 text-body-md text-on-surface-variant">
+                      <svg class="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div class="mt-8">
+                  <PlanCta />
+                </div>
+              </article>
+            ))
+          }
+        </div>
+
+        <p class="text-body-md text-on-surface-variant text-center mt-8 max-w-lg mx-auto">
+          {PLAN_DELIVERY_NOTE}
+        </p>
+      </div>
+    </section>
+
+    <SetupPackages />
+  </main>
+  <Footer />
+</Layout>

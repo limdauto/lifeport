@@ -1,6 +1,9 @@
 ---
 import Button from './Button.astro';
 import Logo from './Logo.astro';
+import { PLAN_CTA, PLAN_CTA_HREF } from '../constants/copy';
+
+const pathname = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md">
@@ -10,20 +13,44 @@ import Logo from './Logo.astro';
     </a>
 
     <nav class="hidden items-center gap-8 md:flex" aria-label="Main navigation">
-      <a href="/#routes" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
-        >Relocation Routes</a
+      <a
+        href="/routes"
+        class:list={[
+          'text-body-md transition-colors',
+          pathname.startsWith('/routes') || pathname === '/professionals'
+            ? 'text-primary font-medium'
+            : 'text-on-surface-variant hover:text-primary',
+        ]}>Relocation Routes</a
       >
-      <a href="/#planner" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
-        >How It Works</a
+      <a
+        href="/how-it-works"
+        class:list={[
+          'text-body-md transition-colors',
+          pathname === '/how-it-works'
+            ? 'text-primary font-medium'
+            : 'text-on-surface-variant hover:text-primary',
+        ]}>How It Works</a
       >
-      <a href="/professionals" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
-        >For Professionals</a
+      <a
+        href="/professionals"
+        class:list={[
+          'text-body-md transition-colors',
+          pathname === '/professionals'
+            ? 'text-primary font-medium'
+            : 'text-on-surface-variant hover:text-primary',
+        ]}>For Professionals</a
       >
-      <a href="/#packages" class="text-body-md text-on-surface-variant hover:text-primary transition-colors"
-        >Pricing</a
+      <a
+        href="/pricing"
+        class:list={[
+          'text-body-md transition-colors',
+          pathname === '/pricing'
+            ? 'text-primary font-medium'
+            : 'text-on-surface-variant hover:text-primary',
+        ]}>Pricing</a
       >
     </nav>
 
-    <Button href="#hero" size="sm">Build my Plan</Button>
+    <Button href={PLAN_CTA_HREF} size="sm">{PLAN_CTA}</Button>
   </div>
 </header>

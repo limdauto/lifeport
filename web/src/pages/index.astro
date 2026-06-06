@@ -9,6 +9,7 @@ import PopularRoutes from '../components/PopularRoutes.astro';
 import ProfessionalSupport from '../components/ProfessionalSupport.astro';
 import SetupPackages from '../components/SetupPackages.astro';
 import Footer from '../components/Footer.astro';
+import PlanCta from '../components/PlanCta.astro';
 ---
 
 <Layout>
@@ -21,6 +22,11 @@ import Footer from '../components/Footer.astro';
     <PopularRoutes />
     <ProfessionalSupport />
     <SetupPackages />
+    <section class="section">
+      <div class="container-page text-center">
+        <PlanCta centered />
+      </div>
+    </section>
   </main>
   <Footer />
 </Layout>

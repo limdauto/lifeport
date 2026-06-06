@@ -1,0 +1,20 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import RouteLanding from '../../components/sections/RouteLanding.astro';
+import { getRoute } from '../../data/routes';
+
+const route = getRoute('uk-to-dubai')!;
+---
+
+<Layout
+  title="Lifeport — UK to Dubai Relocation Plan"
+  description="Order a personalised Lifeport Plan PDF for UK to Dubai relocation — tax, residency, banking, and housing mapped for you."
+>
+  <Header />
+  <main>
+    <RouteLanding route={route} />
+  </main>
+  <Footer />
+</Layout>

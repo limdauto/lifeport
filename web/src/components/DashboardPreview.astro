@@ -19,16 +19,50 @@ const levelLabels: Record<string, string> = {
 };
 
 const timeline = [
-  { month: 'Month 1', tasks: ['Visa Applications', 'Document Apostille'] },
-  { month: 'Month 2', tasks: ['Tax Structuring', 'Bank Account Setup'] },
-  { month: 'Month 3', tasks: ['Housing & Schooling', 'Tax Registration'] },
+  {
+    month: 'Month 1',
+    status: 'active' as const,
+    statusLabel: 'In progress',
+    tasks: [
+      { label: 'Visa Applications', done: true },
+      { label: 'Document Apostille', done: false },
+    ],
+  },
+  {
+    month: 'Month 2',
+    status: 'upcoming' as const,
+    statusLabel: 'Upcoming',
+    tasks: [
+      { label: 'Tax Structuring', done: false },
+      { label: 'Bank Account Setup', done: false },
+    ],
+  },
+  {
+    month: 'Month 3',
+    status: 'upcoming' as const,
+    statusLabel: 'Upcoming',
+    tasks: [
+      { label: 'Housing & Schooling', done: false },
+      { label: 'Tax Registration', done: false },
+    ],
+  },
 ];
+
+const nodeClass = {
+  active: 'dashboard-timeline-node dashboard-timeline-node--active',
+  upcoming: 'dashboard-timeline-node dashboard-timeline-node--upcoming',
+};
+
+const statusBadge = {
+  active: 'bg-primary-fixed text-on-primary-fixed-variant',
+  upcoming: 'bg-surface-container text-on-surface-variant',
+};
 ---
 
 <div class="dashboard-window">
   <div class="flex items-center justify-between border-b border-outline-variant/50 bg-surface-container-high px-6 py-4">
     <div class="flex items-center gap-3">
-      <span class="text-label-md text-on-surface font-semibold">Lifeport Plan Dashboard</span>
+      <span class="text-label-md text-on-surface font-semibold">Lifeport Plan — sample pages</span>
     </div>
     <div class="flex gap-1.5" aria-hidden="true">
       <span class="h-2.5 w-2.5 rounded-full bg-outline-variant/60"></span>
@@ -68,21 +102,52 @@ const timeline = [
         </ul>
       </div>
 
-      <div>
-        <h4 class="text-label-md text-on-surface font-semibold mb-5">Timeline</h4>
-        <div class="relative space-y-7 pl-6">
-          <div class="absolute left-2 top-2 bottom-2 w-0.5 bg-primary-fixed-dim/60" aria-hidden="true"></div>
+      <div class="rounded-lg bg-surface-container-low/60 p-5">
+        <div class="flex items-baseline justify-between mb-5">
+          <h4 class="text-label-md text-on-surface font-semibold">Timeline</h4>
+          <span class="text-label-sm text-outline">3-month view</span>
+        </div>
+
+        <div class="dashboard-timeline">
+          <div class="dashboard-timeline-track" aria-hidden="true"></div>
           {
             timeline.map((entry) => (
-              <div class="relative">
-                <div
-                  class="absolute -left-6 top-1.5 h-3.5 w-3.5 rounded-full border-2 border-primary bg-surface-container-lowest"
-                  aria-hidden="true"
-                />
-                <p class="text-label-md text-primary font-semibold">{entry.month}</p>
-                <ul class="mt-2 space-y-1.5">
+              <div class="dashboard-timeline-entry">
+                <div class={nodeClass[entry.status]} aria-hidden="true"></div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                  <p class="text-label-md text-on-surface font-semibold">{entry.month}</p>
+                  <span
+                    class:list={[
+                      'rounded-full px-2 py-0.5 text-label-sm font-medium',
+                      statusBadge[entry.status],
+                    ]}
+                  >
+                    {entry.statusLabel}
+                  </span>
+                </div>
+
+                <ul class="mt-3 space-y-2">
                   {entry.tasks.map((task) => (
-                    <li class="text-body-md text-on-surface-variant">{task}</li>
+                    <li
+                      class:list={[
+                        'dashboard-timeline-task',
+                        task.done && 'dashboard-timeline-task--done',
+                      ]}
+                    >
+                      <span
+                        class:list={[
+                          'flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-semibold',
+                          task.done
+                            ? 'bg-primary text-on-primary'
+                            : 'border border-outline-variant text-outline',
+                        ]}
+                        aria-hidden="true"
+                      >
+                        {task.done ? '✓' : ''}
+                      </span>
+                      <span class={task.done ? 'font-medium text-on-surface' : ''}>{task.label}</span>
+                    </li>
                   ))}
                 </ul>
               </div>

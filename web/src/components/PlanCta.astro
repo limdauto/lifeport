@@ -1,0 +1,18 @@
+---
+import Button from './Button.astro';
+import { PLAN_CTA, PLAN_CTA_HREF, PLAN_DELIVERY_NOTE } from '../constants/copy';
+
+interface Props {
+  class?: string;
+  centered?: boolean;
+}
+
+const { class: className = '', centered = false } = Astro.props;
+---
+
+<div class:list={[centered && 'text-center', className]}>
+  <Button href={PLAN_CTA_HREF}>{PLAN_CTA}</Button>
+  <p class:list={['text-label-sm text-on-surface-variant mt-3', centered && 'mx-auto max-w-md']}>
+    {PLAN_DELIVERY_NOTE}
+  </p>
+</div>

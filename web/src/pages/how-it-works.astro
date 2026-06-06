@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PlannerSection from '../components/PlannerSection.astro';
+import PlanIncludes from '../components/PlanIncludes.astro';
+import ProfessionalSupport from '../components/ProfessionalSupport.astro';
+import PlanCta from '../components/PlanCta.astro';
+import { PLAN_TAGLINE } from '../constants/copy';
+---
+
+<Layout
+  title="Lifeport — How It Works"
+  description="Tell us about your move, we prepare your personalised Lifeport Plan PDF, and you receive it within 5 working days."
+>
+  <Header />
+  <main>
+    <section class="section">
+      <div class="container-page">
+        <div class="max-w-2xl mx-auto text-center">
+          <span class="planner-tag">How It Works</span>
+          <h1 class="text-display text-on-surface mt-6">From chaos to a plan in three steps</h1>
+          <p class="text-body-lg text-on-surface-variant mt-4">
+            {PLAN_TAGLINE}
+          </p>
+          <div class="mt-8 flex justify-center">
+            <PlanCta centered />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <PlannerSection />
+    <PlanIncludes />
+    <ProfessionalSupport />
+  </main>
+  <Footer />
+</Layout>

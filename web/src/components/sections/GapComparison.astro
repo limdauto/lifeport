@@ -1,0 +1,57 @@
+---
+interface Props {
+  employerItems: string[];
+  yourItems: string[];
+}
+
+const { employerItems, yourItems } = Astro.props;
+---
+
+<section class="section bg-surface-container-low">
+  <div class="container-page">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-headline-lg text-on-surface">The Gap: What your employer doesn't handle</h2>
+      <p class="text-body-lg text-on-surface-variant mt-4">
+        Corporate relocation covers the job. Everything else — your family's life infrastructure — is
+        on you.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-2">
+      <div class="card">
+        <h3 class="text-label-md text-on-surface-variant uppercase tracking-wide">Employer Support</h3>
+        <ul class="mt-6 space-y-3">
+          {
+            employerItems.map((item) => (
+              <li class="flex items-center gap-3 text-body-md text-on-surface-variant">
+                <span class="text-outline">✓</span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="card border-soft !shadow-soft-lg ring-1 ring-primary/20">
+        <h3 class="text-label-md text-primary uppercase tracking-wide">Your Responsibility</h3>
+        <ul class="mt-6 space-y-3">
+          {
+            yourItems.map((item) => (
+              <li class="flex items-center gap-3 text-body-md text-on-surface">
+                <svg
+                  class="h-4 w-4 shrink-0 text-primary"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  aria-hidden="true"
+                >
+                  <path d="M12 2L2 22h20L12 2z" />
+                </svg>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

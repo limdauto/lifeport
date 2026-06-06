@@ -1,11 +1,16 @@
 # Lifeport — Astro Site
 
-Live implementation of the Lifeport relocation platform design, built with Astro and Tailwind CSS using the **Serene Humanist** design system.
+Marketing site for Lifeport's MVP: **personalised relocation plan PDFs**, prepared by the team and delivered within 5 working days. Built with Astro and Tailwind CSS using the **Serene Humanist** design system.
 
 ## Pages
 
 - `/` — Home landing page (planner focus)
+- `/routes` — Relocation routes hub
 - `/professionals` — UK arrival route for professionals
+- `/routes/uk-to-dubai` — UK to Dubai corridor
+- `/routes/families-uk` — Families moving to the UK
+- `/how-it-works` — Product walkthrough
+- `/pricing` — Plans and setup packages
 
 ## Development
 

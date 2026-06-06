@@ -1,5 +1,6 @@
 ---
 import Button from './Button.astro';
+import { PLAN_CTA_HREF } from '../constants/copy';
 ---
 
 <section class="section bg-surface-container-low">
@@ -11,12 +12,11 @@ import Button from './Button.astro';
           Built for planning. Ready for experts.
         </h2>
         <p class="text-body-lg text-on-surface-variant mt-4">
-          Lifeport helps you prepare a structured move profile and expert packet, so lawyers,
-          accountants, tax advisers, and relocation specialists can review the right information
-          faster.
+          Your Lifeport Plan PDF is structured so lawyers, accountants, tax advisers, and relocation
+          specialists can review the right information faster — no scattered notes or missing context.
         </p>
       </div>
-      <Button href="#" variant="outline" class="shrink-0">Learn about Expert Packets</Button>
+      <Button href={PLAN_CTA_HREF} variant="outline" class="shrink-0">Order your plan</Button>
     </div>
   </div>
 </section>

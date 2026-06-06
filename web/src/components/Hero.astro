@@ -1,5 +1,6 @@
 ---
-import Button from './Button.astro';
+import PlanCta from './PlanCta.astro';
+import { PLAN_TAGLINE } from '../constants/copy';
 ---
 
 <section id="hero" class="relative overflow-hidden">
@@ -11,11 +12,10 @@ import Button from './Button.astro';
           Moving country breaks your life into pieces.
         </h1>
         <p class="text-body-lg text-on-surface-variant mt-6">
-          Immigration, tax, banking, housing, schools — each lives in a different system. Lifeport
-          organizes everything into one clear plan so nothing falls through the cracks.
+          Immigration, tax, banking, housing, schools — each lives in a different system. {PLAN_TAGLINE}
         </p>
         <div class="mt-8">
-          <Button href="#planner">Build my Lifeport Plan</Button>
+          <PlanCta />
         </div>
       </div>
 
@@ -31,7 +31,7 @@ import Button from './Button.astro';
           />
         </div>
         <div class="absolute -bottom-4 -left-4 hidden card !p-4 md:block" aria-hidden="true">
-          <p class="text-label-sm text-on-surface-variant">Active plans</p>
+          <p class="text-label-sm text-on-surface-variant">Plans delivered</p>
           <p class="text-headline-md text-primary font-semibold">2,400+</p>
         </div>
       </div>

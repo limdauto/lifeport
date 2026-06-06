@@ -4,21 +4,21 @@ import DashboardPreview from './DashboardPreview.astro';
 const steps = [
   {
     icon: 'profile',
-    title: 'Profile',
+    title: 'Tell us your story',
     description:
-      'Build your relocation profile across immigration, tax, housing, and family needs.',
+      'Share your origin, destination, family, timeline, and priorities — we handle the complexity.',
   },
   {
     icon: 'plan',
-    title: 'Plan',
+    title: 'We build your plan',
     description:
-      'Get a unified timeline identifying critical path dependencies and friction points.',
+      'Our team maps dependencies, risk flags, and sequenced actions for your specific move.',
   },
   {
     icon: 'execution',
-    title: 'Execution',
+    title: 'You receive your PDF',
     description:
-      'Prepare structured packets for experts to execute your move smoothly.',
+      'A personalised Lifeport Plan delivered within 5 working days — ready to act on and share with experts.',
   },
 ];
 ---
@@ -26,11 +26,11 @@ const steps = [
 <section id="planner" class="section bg-surface-container-low">
   <div class="container-page">
     <div class="max-w-2xl text-center mx-auto">
-      <span class="planner-tag">The Planner</span>
-      <h2 class="text-headline-lg text-on-surface mt-6">Lifeport plans the chaos</h2>
+      <span class="planner-tag">Your Lifeport Plan</span>
+      <h2 class="text-headline-lg text-on-surface mt-6">One plan. Everything mapped.</h2>
       <p class="text-body-lg text-on-surface-variant mt-4">
-        A single dashboard with your Risk Map, dependency timeline, and expert-ready packets —
-        so you always know what matters next.
+        No app to learn, no dashboard to maintain. You get a clear, personalised PDF plan built
+        for your move — risk map, timeline, and expert-ready summaries included.
       </p>
     </div>
 
@@ -54,9 +54,8 @@ const steps = [
               )}
               {step.icon === 'execution' && (
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <path d="M4.5 16.5c1.5-4 4.5-7 7.5-9 3 2 6 5 7.5 9" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M12 7.5V4M10 5l2-1.5L14 5" stroke-linecap="round" stroke-linejoin="round" />
-                  <path d="M6 18h12" stroke-linecap="round" />
+                  <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               )}
             </div>
@@ -68,7 +67,11 @@ const steps = [
       }
     </div>
 
-    <div class="mt-16">
+    <div class="mt-12 max-w-2xl mx-auto text-center">
+      <p class="text-label-sm text-outline">Preview — pages from a Lifeport Plan PDF</p>
+    </div>
+
+    <div class="mt-6">
       <DashboardPreview />
     </div>
   </div>

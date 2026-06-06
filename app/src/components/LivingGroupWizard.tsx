@@ -10,11 +10,10 @@ import type { FieldDef, LivingFieldGroup } from '@/lib/fieldDefs';
 import { groupGuidanceFor, groupTermsFor, LIVING_GROUP_INTROS } from '@/lib/fieldGlossary';
 import {
   computeRiskScore,
-  LIVING_GROUP_DOMAIN,
   sortGroupsByRiskImpact,
   type RouteRiskScoringConfig,
 } from '@/lib/riskScore';
-import { DOMAIN_META } from '@/lib/reportDesign';
+import { livingGroupIcon } from '@/lib/reportDesign';
 
 export type LivingWizardGroup = {
   group: LivingFieldGroup;
@@ -67,7 +66,14 @@ function GroupSection({
       className="scroll-mt-32 rounded-2xl border border-outline-variant/30 bg-surface-container-lowest p-6 report-soft-shadow"
     >
       <div className="flex flex-wrap items-start justify-between gap-3">
-        <div className="flex items-start gap-1">
+        <div className="flex items-start gap-3">
+          <div
+            className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary-container/50 text-primary"
+            aria-hidden
+          >
+            <ReportIcon name={livingGroupIcon(group)} size={20} />
+          </div>
+          <div className="flex items-start gap-1">
           <h2 className="text-xl font-semibold text-on-surface">{label}</h2>
           <FieldInfoTip
             text={groupGuidanceFor(group)}
@@ -77,6 +83,7 @@ function GroupSection({
             placement="below"
             size="md"
           />
+          </div>
         </div>
         {showImpact && groupImpact != null && groupImpact > 0 ? (
           <span className="rounded-full bg-error-container/80 px-3 py-1 text-label-sm font-semibold text-on-error-container">
@@ -218,8 +225,7 @@ export function LivingGroupWizard({
               </p>
               <nav className="space-y-1">
                 {navGroups.map((item, index) => {
-                  const domain = LIVING_GROUP_DOMAIN[item.group];
-                  const meta = DOMAIN_META[domain];
+                  const icon = livingGroupIcon(item.group);
                   const impact = risk.groupImpacts[item.group] ?? 0;
                   const active = activeGroup === item.group;
 
@@ -234,7 +240,11 @@ export function LivingGroupWizard({
                           : 'text-on-surface-variant hover:bg-surface-container'
                       }`}
                     >
-                      <ReportIcon name={meta.icon} size={20} className={active ? '' : meta.colorClass} />
+                      <ReportIcon
+                        name={icon}
+                        size={20}
+                        className={active ? '' : 'text-primary'}
+                      />
                       <span className="min-w-0 flex-1 leading-snug">
                         <span className="line-clamp-2">{item.label}</span>
                         {index === 0 && impact > 0 ? (

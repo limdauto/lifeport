@@ -8,6 +8,7 @@ import {
   isPremiumHeroSection,
   riskPillClass,
   riskPillLabel,
+  sectionIcon,
 } from '@/lib/reportDesign';
 import { sectionMeta } from '@/lib/reportSectionMeta';
 
@@ -75,8 +76,11 @@ export function ReportSectionCard({
     >
       <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-container text-sm font-bold text-primary">
-            {String(index + 1).padStart(2, '0')}
+          <div
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-surface-container text-primary"
+            aria-hidden
+          >
+            <ReportIcon name={sectionIcon(section.sectionKey)} size={22} />
           </div>
           <div>
             <span className="text-label-sm font-medium uppercase tracking-widest text-on-surface-variant">
@@ -125,8 +129,11 @@ function CompactSectionCard({
         }}
         className="flex w-full items-start gap-4 px-5 py-4 text-left hover:bg-surface-container-low/50"
       >
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-surface-container-high text-xs font-bold">
-          {String(index + 1).padStart(2, '0')}
+        <span
+          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-surface-container-high text-primary"
+          aria-hidden
+        >
+          <ReportIcon name={sectionIcon(section.sectionKey)} size={18} />
         </span>
         <div className="min-w-0 flex-1">
           <span className="text-[10px] font-semibold uppercase tracking-wider text-outline">

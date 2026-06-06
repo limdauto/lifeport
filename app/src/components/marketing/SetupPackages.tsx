@@ -1,35 +1,43 @@
+import { ReportIcon } from '@/components/report/ReportIcon';
+
 const packages = [
   {
+    icon: 'account_balance',
     title: 'Banking Setup',
     quote: '"I need a local account before I can sign a lease."',
     items: ['Pre-arrival account guidance', 'Document checklist', 'Transfer timeline'],
   },
   {
+    icon: 'key',
     title: 'Housing Readiness',
     quote: '"No credit history, no guarantor, no lease."',
     items: ['Guarantor alternatives', 'Deposit requirements', 'Agency shortlist'],
   },
   {
+    icon: 'health_and_safety',
     title: 'Healthcare Setup',
     quote: '"I don\'t know how to register with the local system."',
     items: ['Insurance options', 'Registration steps', 'Family coverage'],
   },
   {
+    icon: 'family_restroom',
     title: 'Family Arrival Pack',
     quote: '"My spouse\'s visa depends on mine, but schools need an address."',
     items: ['Dependent visa sequencing', 'School enrollment', 'Nursery waitlists'],
   },
   {
+    icon: 'receipt_long',
     title: 'Tax Residence Packet',
     quote: '"I might be tax resident in two countries at once."',
     items: ['Split-year analysis', 'Filing obligations', 'Asset review'],
   },
   {
+    icon: 'calendar_month',
     title: 'First 90 Days Concierge',
     quote: '"The first three months are a blur of admin."',
     items: ['Priority task ordering', 'Weekly check-ins', 'Expert handoffs'],
   },
-];
+] as const;
 
 export function SetupPackages() {
   return (
@@ -47,19 +55,18 @@ export function SetupPackages() {
           {packages.map((pkg) => (
             <article key={pkg.title} className="card">
               <div className="flex h-10 w-10 items-center justify-center rounded-DEFAULT bg-tertiary-fixed text-primary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden>
-                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                  <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <ReportIcon name={pkg.icon} size={22} />
               </div>
               <h3 className="text-label-md text-on-surface mt-4">{pkg.title}</h3>
               <p className="text-body-md text-on-surface-variant mt-2 italic">{pkg.quote}</p>
               <ul className="mt-4 space-y-3">
                 {pkg.items.map((item) => (
-                  <li key={item} className="flex items-center gap-2 text-body-md text-on-surface-variant">
-                    <svg className="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                      <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                  <li key={item} className="flex items-start gap-2 text-body-md text-on-surface-variant">
+                    <ReportIcon
+                      name="subdirectory_arrow_right"
+                      size={18}
+                      className="mt-0.5 shrink-0 text-primary"
+                    />
                     {item}
                   </li>
                 ))}

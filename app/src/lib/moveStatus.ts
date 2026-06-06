@@ -7,15 +7,19 @@ export type MoveStatusItem = {
   domain: ReportDomain;
 };
 
-const DOMAIN_BY_LABEL: Record<string, ReportDomain> = {
-  visa: 'visa',
-  housing: 'housing',
-  banking: 'banking',
-  accommodation: 'housing',
-};
-
 function domainForLabel(label: string): ReportDomain {
-  return DOMAIN_BY_LABEL[label.toLowerCase()] ?? 'general';
+  const t = label.toLowerCase();
+  if (/\b(visa|evisa|ukvi|emirates|cas|sponsor|residence|immigration)\b/.test(t)) return 'visa';
+  if (/\b(bank|banking|payroll|money|account)\b/.test(t)) return 'banking';
+  if (/\b(tax|hmrc|pension|ni\b|national insurance)\b/.test(t)) return 'tax';
+  if (/\b(housing|ejari|tenancy|rent|accommodation|dewa|utility|utilities)\b/.test(t)) {
+    return 'housing';
+  }
+  if (/\b(health|gp|nhs|insurance|medical)\b/.test(t)) return 'health';
+  if (/\b(family|school|nursery|child|dependant|spouse)\b/.test(t)) return 'family';
+  if (/\b(document|attestation|credential|certificate)\b/.test(t)) return 'documents';
+  if (/\b(shipping|storage|pet|transport|phone|sim)\b/.test(t)) return 'logistics';
+  return 'general';
 }
 
 function parseInlineStatuses(line: string): MoveStatusItem[] {

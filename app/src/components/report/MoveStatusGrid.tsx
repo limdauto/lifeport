@@ -1,22 +1,26 @@
 import { ReportIcon } from '@/components/report/ReportIcon';
 import {
   DOMAIN_META,
+  setupNeedIcon,
   setupStatusTone,
   type ReportDomain,
 } from '@/lib/reportDesign';
 import type { MoveStatusItem } from '@/lib/moveStatus';
 
 function MoveStatusCard({
+  itemKey,
   label,
   value,
   domain,
 }: {
+  itemKey: string;
   label: string;
   value: string;
   domain: ReportDomain;
 }) {
   const meta = DOMAIN_META[domain];
   const tone = setupStatusTone(value);
+  const icon = setupNeedIcon(itemKey, label, domain);
 
   return (
     <div
@@ -26,7 +30,7 @@ function MoveStatusCard({
         <div
           className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${tone.iconWrapClass}`}
         >
-          <ReportIcon name={meta.icon} size={24} filled={meta.fill} />
+          <ReportIcon name={icon} size={24} />
         </div>
         <div className="min-w-0 flex-1">
           <p className="text-[10px] font-bold uppercase tracking-wider text-on-surface-variant">
@@ -62,14 +66,20 @@ export function MoveStatusGrid({ statuses }: { statuses: MoveStatusItem[] }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-2">
-        <ReportIcon name="tune" className="text-primary" size={20} />
+        <ReportIcon name="checklist" className="text-primary" size={20} />
         <p className="text-label-sm font-semibold uppercase tracking-widest text-on-surface-variant">
-          Setup status
+          Setup needs
         </p>
       </div>
       <div className="grid grid-cols-1 gap-3">
         {statuses.map((s) => (
-          <MoveStatusCard key={s.key} label={s.label} value={s.value} domain={s.domain} />
+          <MoveStatusCard
+            key={s.key}
+            itemKey={s.key}
+            label={s.label}
+            value={s.value}
+            domain={s.domain}
+          />
         ))}
       </div>
     </div>

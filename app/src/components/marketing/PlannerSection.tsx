@@ -73,13 +73,13 @@ export function PlannerSection() {
           ))}
         </div>
 
-        <div className="mx-auto mt-12 max-w-2xl text-center">
-          <p className="text-label-sm text-outline">Preview — the actual Lifeport Plan experience</p>
+        <div className="mt-16 w-full">
+          <PlanProductPreview variant="section" />
         </div>
 
-        <div className="mt-6">
-          <PlanProductPreview />
-        </div>
+        <p className="mt-6 text-center text-body-lg text-on-surface-variant">
+          See gaps, risk, and deadlines before they become expensive surprises
+        </p>
       </div>
     </section>
   );

@@ -1,8 +1,0 @@
-{
-  "name": "lifeport",
-  "private": true,
-  "scripts": {
-    "build": "npm ci --prefix app && npm run build:cf --prefix app",
-    "deploy": "npm run deploy:cf:only --prefix app"
-  }
-}

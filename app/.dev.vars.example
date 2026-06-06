@@ -10,11 +10,7 @@ NEXTJS_ENV=development
 # NEXT_PUBLIC_APP_URL=https://lifeport-app.lim-339.workers.dev \
 # npm run deploy:cf
 #
-# Cloudflare Workers Builds (repo root = /):
-#   Build command:  npm run build
-#   Deploy command: npm run deploy
-#   Build variables: NEXT_PUBLIC_CONVEX_URL, NEXT_PUBLIC_APP_URL
-#
-# Or set Root directory to `app` and use:
+# Cloudflare Workers Builds — set root directory to `app`, then:
 #   Build:  node scripts/prepare-cf-build.mjs && npx opennextjs-cloudflare build
 #   Deploy: npx opennextjs-cloudflare deploy
+#   Build variables: NEXT_PUBLIC_CONVEX_URL, NEXT_PUBLIC_APP_URL

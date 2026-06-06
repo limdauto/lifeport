@@ -1,4 +1,4 @@
-/** Visual system aligned with stitch_lifeport_relocation_platform/report_design */
+/** Report section visual system (domain colors, icons, layout tokens). */
 
 export type ReportDomain =
   | 'visa'

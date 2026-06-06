@@ -1,7 +1,7 @@
 # Testing Lifeport locally
 
 ```bash
-cd app && npm run dev
+npm run dev
 # http://localhost:3000
 ```
 
@@ -10,7 +10,7 @@ cd app && npm run dev
 **Free Lifeport Check**
 
 ```bash
-cd app && npm run verify
+npm run verify
 ```
 
 Expected: `✓ Lifeport Check ready with 6 sections`
@@ -18,7 +18,7 @@ Expected: `✓ Lifeport Check ready with 6 sections`
 **Paid Living Report (dev checkout)**
 
 ```bash
-cd app && npm run verify:paid
+npm run verify:paid
 ```
 
 Expected: `✓ Living Report ready with 21 sections`
@@ -26,7 +26,7 @@ Expected: `✓ Living Report ready with 21 sections`
 **Admin publish**
 
 ```bash
-cd app && npm run verify:admin
+npm run verify:admin
 ```
 
 Expected: `✓ Published living report — 18+ sections visible to customer`
@@ -68,7 +68,7 @@ With `ADMIN_SECRET` set, customers see “expert review in progress” until pub
 
 ## Stripe (optional)
 
-Set in `app/.env.local`:
+Set in `.env.local`:
 
 ```
 STRIPE_SECRET_KEY=sk_test_...

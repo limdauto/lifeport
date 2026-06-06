@@ -1,7 +1,8 @@
 # dependencies & build
 node_modules/
 dist/
-.astro/
+.next/
+.open-next/
 
 # logs
 npm-debug.log*
@@ -13,9 +14,11 @@ pnpm-debug.log*
 .env
 .env.*
 !.env.example
+!.env.local.example
 
 # OS & editors
 .DS_Store
 .idea/
 .vscode/
 .cursor/
+.wrangler/

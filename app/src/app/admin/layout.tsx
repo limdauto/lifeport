@@ -1,5 +1,7 @@
 import { AdminChrome } from '@/components/admin/AdminChrome';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Lifeport Admin',
   robots: { index: false, follow: false },

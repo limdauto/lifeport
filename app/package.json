@@ -14,12 +14,15 @@
     "verify:regen": "node scripts/verify-regen-flow.mjs",
     "verify:admin": "node scripts/verify-admin-flow.mjs",
     "build": "next build",
+    "preview:cf": "node scripts/prepare-cf-build.mjs && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy:cf": "node scripts/prepare-cf-build.mjs && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
     "@auth/core": "^0.37.0",
     "@convex-dev/auth": "^0.0.80",
+    "@opennextjs/cloudflare": "^1.19.11",
     "convex": "^1.40.0",
     "next": "16.2.7",
     "react": "19.2.4",
@@ -34,6 +37,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.98.0"
   }
 }

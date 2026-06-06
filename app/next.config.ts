@@ -1,6 +1,22 @@
 import type { NextConfig } from "next";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const appDir = path.dirname(fileURLToPath(import.meta.url));
+const wsStub = path.join(appDir, "src/lib/stubs/ws.ts");
 
 const nextConfig: NextConfig = {
+  turbopack: {
+    resolveAlias: {
+      ws: wsStub,
+    },
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.resolve.alias = { ...config.resolve.alias, ws: wsStub };
+    }
+    return config;
+  },
   async redirects() {
     return [
       {
@@ -26,3 +42,7 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
+
+initOpenNextCloudflareForDev();

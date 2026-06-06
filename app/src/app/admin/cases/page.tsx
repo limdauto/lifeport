@@ -1,10 +1,5 @@
-import { Suspense } from 'react';
-import { AdminCaseList } from '@/components/admin/AdminCaseList';
+import { LazyAdminCaseList } from '@/components/admin/lazy';
 
 export default function AdminCasesPage() {
-  return (
-    <Suspense fallback={<p className="text-on-surface-variant">Loading cases…</p>}>
-      <AdminCaseList />
-    </Suspense>
-  );
+  return <LazyAdminCaseList />;
 }

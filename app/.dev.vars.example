@@ -1,0 +1,11 @@
+# Used by `wrangler dev` / OpenNext preview (not committed).
+NEXTJS_ENV=development
+
+# Production deploy (inlined at build time — pass on the command line or in CI):
+# NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
+# NEXT_PUBLIC_APP_URL=https://lifeport-app.<subdomain>.workers.dev
+#
+# Example:
+# NEXT_PUBLIC_CONVEX_URL=https://hip-rooster-978.eu-west-1.convex.cloud \
+# NEXT_PUBLIC_APP_URL=https://lifeport-app.lim-339.workers.dev \
+# npm run deploy:cf

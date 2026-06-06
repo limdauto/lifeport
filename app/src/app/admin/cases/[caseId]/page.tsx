@@ -1,4 +1,4 @@
-import { AdminCaseDetail } from '@/components/admin/AdminCaseDetail';
+import { LazyAdminCaseDetail } from '@/components/admin/lazy';
 import type { Id } from 'convex/_generated/dataModel';
 
 export default async function AdminCasePage({
@@ -7,5 +7,5 @@ export default async function AdminCasePage({
   params: Promise<{ caseId: string }>;
 }) {
   const { caseId } = await params;
-  return <AdminCaseDetail caseId={caseId as Id<'cases'>} />;
+  return <LazyAdminCaseDetail caseId={caseId as Id<'cases'>} />;
 }

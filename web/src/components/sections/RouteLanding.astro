@@ -2,6 +2,7 @@
 import GapComparison from './GapComparison.astro';
 import ProtocolsGrid from './ProtocolsGrid.astro';
 import PlanCta from '../PlanCta.astro';
+import { snapshotHref } from '../../constants/copy';
 import type { RouteConfig } from '../../data/routes';
 
 interface Props {
@@ -19,15 +20,15 @@ const { route } = Astro.props;
         <h1 class="text-display text-on-surface mt-4">{route.title}</h1>
         <p class="text-body-lg text-on-surface-variant mt-6">{route.description}</p>
         <div class="mt-8">
-          <PlanCta />
+          <PlanCta href={snapshotHref(route.slug)} />
         </div>
       </div>
 
       <div class="card shadow-soft-lg">
         <p class="text-label-md text-on-surface font-semibold">What your plan will cover</p>
         <p class="text-body-md text-on-surface-variant mt-2">
-          A personalised PDF mapping your critical path, risk flags, and sequenced actions for this
-          route.
+          A free Snapshot preview of your critical path, friction points, and timeline — unlock the
+          Living Report for full route-specific analysis.
         </p>
         <ul class="mt-6 space-y-3">
           {

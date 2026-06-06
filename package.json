@@ -1,0 +1,9 @@
+{
+  "name": "lifeport",
+  "private": true,
+  "scripts": {
+    "dev": "cd app && npm run dev",
+    "verify": "cd app && npm run verify",
+    "build": "cd app && npm run build"
+  }
+}

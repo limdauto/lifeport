@@ -13,4 +13,6 @@ NEXTJS_ENV=development
 # Cloudflare Workers Builds — set root directory to `app`, then:
 #   Build:  node scripts/prepare-cf-build.mjs && npx opennextjs-cloudflare build
 #   Deploy: npx opennextjs-cloudflare deploy
-#   Build variables: NEXT_PUBLIC_CONVEX_URL, NEXT_PUBLIC_APP_URL
+#
+# Production URLs are in .env.production (committed). Override in CI with build
+# variables only if you need a different app URL (e.g. custom domain).

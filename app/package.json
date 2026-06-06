@@ -14,8 +14,10 @@
     "verify:regen": "node scripts/verify-regen-flow.mjs",
     "verify:admin": "node scripts/verify-admin-flow.mjs",
     "build": "next build",
-    "preview:cf": "node scripts/prepare-cf-build.mjs && opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "build:cf": "node scripts/prepare-cf-build.mjs && opennextjs-cloudflare build",
     "deploy:cf": "node scripts/prepare-cf-build.mjs && opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "deploy:cf:only": "opennextjs-cloudflare deploy",
+    "preview:cf": "node scripts/prepare-cf-build.mjs && opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "start": "next start",
     "lint": "eslint"
   },

@@ -4,7 +4,9 @@ import { useQuery } from 'convex/react';
 import { api } from 'convex/_generated/api';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { getAdminSecret } from '@/lib/adminSession';
+import { StatusBadge } from '@/components/admin/StatusBadge';
+import { PAID_PRODUCT_NAME } from '@/lib/copy';
+import { reportStatusLabel } from '@/lib/statusLabels';
 
 type Filter = 'all' | 'needs_review' | 'published' | 'package_requests';
 
@@ -15,34 +17,10 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'package_requests', label: 'Package requests' },
 ];
 
-function statusBadge(status: string) {
-  const styles: Record<string, string> = {
-    living_needs_review: 'bg-tertiary-container text-on-tertiary-container',
-    living_published: 'bg-primary-container text-on-primary-container',
-    living_generating: 'bg-surface-container-high text-on-surface-variant',
-    check_ready: 'bg-surface-container-high text-on-surface-variant',
-    paid: 'bg-surface-container-high text-on-surface-variant',
-  };
-  return (
-    <span
-      className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${styles[status] ?? 'bg-surface-container-high text-on-surface-variant'}`}
-    >
-      {status.replace(/_/g, ' ')}
-    </span>
-  );
-}
-
 export function AdminCaseList() {
   const searchParams = useSearchParams();
   const filter = (searchParams.get('filter') as Filter) || 'all';
-  const secret = getAdminSecret();
-
-  const cases = useQuery(
-    api.admin.listCases,
-    secret ? { adminSecret: secret, filter } : 'skip',
-  );
-
-  if (!secret) return null;
+  const cases = useQuery(api.admin.listCases, { filter });
 
   return (
     <div>
@@ -50,7 +28,7 @@ export function AdminCaseList() {
         <div>
           <h1 className="text-2xl font-bold text-on-surface">Cases</h1>
           <p className="mt-1 text-sm text-on-surface-variant">
-            Review living reports, edit sections, and publish to customers.
+            Review Lifeport Plans, edit sections, and publish to customers.
           </p>
         </div>
       </div>
@@ -84,8 +62,8 @@ export function AdminCaseList() {
               <tr>
                 <th className="px-4 py-3 font-semibold">Customer</th>
                 <th className="px-4 py-3 font-semibold">Route</th>
-                <th className="px-4 py-3 font-semibold">Case status</th>
-                <th className="px-4 py-3 font-semibold">Living report</th>
+                <th className="px-4 py-3 font-semibold">Progress</th>
+                <th className="px-4 py-3 font-semibold">{PAID_PRODUCT_NAME}</th>
                 <th className="px-4 py-3 font-semibold">Packages</th>
                 <th className="px-4 py-3 font-semibold">Updated</th>
               </tr>
@@ -106,9 +84,11 @@ export function AdminCaseList() {
                     <p className="text-xs text-on-surface-variant">{row.email}</p>
                   </td>
                   <td className="px-4 py-3 text-on-surface">{row.routeTitle}</td>
-                  <td className="px-4 py-3">{statusBadge(row.status)}</td>
+                  <td className="px-4 py-3">
+                    <StatusBadge kind="case" status={row.status} />
+                  </td>
                   <td className="px-4 py-3 text-on-surface-variant">
-                    {row.livingStatus ?? '—'}
+                    {row.livingStatus ? reportStatusLabel(row.livingStatus) : '—'}
                   </td>
                   <td className="px-4 py-3">
                     {row.requestedPackages > 0 ? (

@@ -1,16 +1,22 @@
 import { v } from 'convex/values';
 import { mutation, query } from './_generated/server';
-import { assertAdminSecret } from './lib/adminAuth';
+import { assertAdmin, configuredAdminEmails, devAdminSecretHint } from './lib/adminAuth';
+import { devSeedCredentials, isDevAdminSeedEnabled } from './lib/devSeed';
 import { getRouteByKey } from './lib/routeConfigs';
 
-const adminSecretArg = { adminSecret: v.string() };
+const adminSecretArg = { adminSecret: v.optional(v.string()) };
 
 export const getAdminConfig = query({
   args: {},
   handler: async () => {
+    const seed = devSeedCredentials();
     return {
       founderReviewEnabled: Boolean(process.env.ADMIN_SECRET),
-      devLoginHint: process.env.ADMIN_SECRET ? undefined : 'dev-admin',
+      devLoginHint: devAdminSecretHint() || undefined,
+      adminEmails: configuredAdminEmails(),
+      devSeedEnabled: isDevAdminSeedEnabled(),
+      devAdminEmail: seed?.email,
+      devAdminPassword: seed?.password,
     };
   },
 });
@@ -29,7 +35,7 @@ export const listCases = query({
     limit: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    assertAdminSecret(args.adminSecret);
+    await assertAdmin(ctx, args.adminSecret);
     const limit = args.limit ?? 50;
     const filter = args.filter ?? 'all';
 
@@ -88,7 +94,7 @@ export const getCaseAdminDetail = query({
     caseId: v.id('cases'),
   },
   handler: async (ctx, args) => {
-    assertAdminSecret(args.adminSecret);
+    await assertAdmin(ctx, args.adminSecret);
 
     const caseDoc = await ctx.db.get(args.caseId);
     if (!caseDoc) return null;
@@ -189,7 +195,7 @@ export const updateLivingSection = mutation({
     ),
   },
   handler: async (ctx, args) => {
-    assertAdminSecret(args.adminSecret);
+    await assertAdmin(ctx, args.adminSecret);
 
     const section = await ctx.db.get(args.sectionId);
     if (!section) throw new Error('Section not found');
@@ -231,7 +237,7 @@ export const publishLivingReport = mutation({
     reportId: v.id('reports'),
   },
   handler: async (ctx, args) => {
-    assertAdminSecret(args.adminSecret);
+    await assertAdmin(ctx, args.adminSecret);
 
     const report = await ctx.db.get(args.reportId);
     if (!report || report.caseId !== args.caseId || report.type !== 'living') {
@@ -275,7 +281,7 @@ export const addAdminNote = mutation({
     author: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    assertAdminSecret(args.adminSecret);
+    await assertAdmin(ctx, args.adminSecret);
     const body = args.body.trim();
     if (!body) throw new Error('Note cannot be empty');
 

@@ -24,7 +24,7 @@ export function RouteLanding({ route }: { route: MarketingRoute }) {
               <p className="text-label-md font-semibold text-on-surface">What your plan will cover</p>
               <p className="text-body-md text-on-surface-variant mt-2">
                 A free Lifeport Check — a first look at friction points, hidden dependencies, and areas
-                to review. Unlock your Living Report for the full picture.
+                to review. Unlock your Lifeport Plan for the full picture.
               </p>
               <ul className="mt-6 space-y-3">
                 {route.planCoverage.map((item) => (

@@ -66,7 +66,7 @@ for (let i = 0; i < 60; i++) {
   const status = living.report?.status;
   const sectionCount = living.sections?.length ?? 0;
   process.stdout.write(`   attempt ${i + 1}: status=${status}, sections=${sectionCount}\r`);
-  if ((status === 'ready' || status === 'published') && sectionCount >= 18) {
+  if ((status === 'ready' || status === 'published') && sectionCount >= 19) {
     console.log(`\n✓ Living Report ready with ${sectionCount} sections`);
     console.log(`  View at: http://localhost:3000/report/${caseId}`);
     process.exit(0);

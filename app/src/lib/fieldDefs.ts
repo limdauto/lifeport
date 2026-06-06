@@ -12,6 +12,8 @@ export type LivingFieldGroup =
   | 'destination'
   | 'other';
 
+export const DONT_KNOW_VALUE = 'dont_know';
+
 export type FieldDef = {
   key: string;
   label: string;
@@ -20,6 +22,8 @@ export type FieldDef = {
   placeholder?: string;
   required?: boolean;
   hint?: string;
+  /** Text/textarea: user can flag "don't know yet" for report follow-up. */
+  allowDontKnow?: boolean;
   section?: 'contact' | 'move' | 'status' | 'flags' | 'concerns';
   group?: LivingFieldGroup;
 };
@@ -59,6 +63,7 @@ const statusOptions = [
   { value: 'in_progress', label: 'In progress' },
   { value: 'sorted', label: 'Sorted' },
   { value: 'uncertain', label: 'Uncertain' },
+  { value: DONT_KNOW_VALUE, label: "Don't know yet" },
 ];
 
 const householdOptions = [
@@ -71,6 +76,7 @@ const householdOptions = [
 const yesNo = [
   { value: 'yes', label: 'Yes' },
   { value: 'no', label: 'No' },
+  { value: DONT_KNOW_VALUE, label: "Don't know yet" },
 ];
 
 const status = (key: string, label: string, group: LivingFieldGroup, hint?: string): FieldDef => ({
@@ -88,6 +94,7 @@ const text = (key: string, label: string, group: LivingFieldGroup, placeholder?:
   type: 'text',
   group,
   placeholder,
+  allowDontKnow: true,
 });
 
 const area = (key: string, label: string, group: LivingFieldGroup, placeholder?: string): FieldDef => ({
@@ -96,6 +103,7 @@ const area = (key: string, label: string, group: LivingFieldGroup, placeholder?:
   type: 'textarea',
   group,
   placeholder,
+  allowDontKnow: true,
 });
 
 const CHECK_FIELD_DEFS: Record<string, FieldDef> = {
@@ -303,24 +311,86 @@ function labelFromKey(key: string): string {
 }
 
 export function checkFieldDef(key: string): FieldDef {
-  return (
+  const def: FieldDef =
     CHECK_FIELD_DEFS[key] ?? {
       key,
       label: labelFromKey(key),
       type: 'text',
       section: 'flags',
-    }
-  );
+    };
+  if (
+    !def.required &&
+    def.type !== 'email' &&
+    def.type !== 'select' &&
+    def.allowDontKnow === undefined
+  ) {
+    return { ...def, allowDontKnow: true };
+  }
+  return def;
 }
 
 export function checkFieldsForRoute(keys: string[]): FieldDef[] {
   return keys.map(checkFieldDef);
 }
 
+export const CHECK_INTAKE_STEP_DEFS = [
+  {
+    key: 'contact',
+    title: 'About you',
+    subtitle: 'So we can send your check and personalise your report.',
+  },
+  {
+    key: 'move',
+    title: 'Your move',
+    subtitle: "Where you're going, when, and who's moving with you.",
+  },
+  {
+    key: 'status',
+    title: "Where you're at",
+    subtitle: 'Your current progress and what worries you most.',
+  },
+] as const;
+
+const CHECK_SECTION_TO_STEP: Record<string, (typeof CHECK_INTAKE_STEP_DEFS)[number]['key']> = {
+  contact: 'contact',
+  move: 'move',
+  status: 'status',
+  flags: 'status',
+  concerns: 'status',
+};
+
+export function groupCheckFieldsIntoSteps(
+  fields: FieldDef[],
+): Array<{ step: (typeof CHECK_INTAKE_STEP_DEFS)[number]; fields: FieldDef[] }> {
+  const buckets = CHECK_INTAKE_STEP_DEFS.map((step) => ({ step, fields: [] as FieldDef[] }));
+  const indexByKey = Object.fromEntries(CHECK_INTAKE_STEP_DEFS.map((s, i) => [s.key, i]));
+
+  for (const field of fields) {
+    const stepKey = CHECK_SECTION_TO_STEP[field.section ?? 'flags'] ?? 'status';
+    buckets[indexByKey[stepKey]].fields.push(field);
+  }
+
+  return buckets.filter((b) => b.fields.length > 0);
+}
+
+const CHECK_SECTION_TO_LIVING_GROUP: Record<string, LivingFieldGroup> = {
+  contact: 'other',
+  move: 'logistics',
+  status: 'visa',
+  flags: 'family',
+  concerns: 'other',
+};
+
 export function livingFieldDef(key: string): FieldDef {
   if (LIVING_FIELD_DEFS[key]) return LIVING_FIELD_DEFS[key];
   const check = CHECK_FIELD_DEFS[key];
-  if (check) return { ...check, section: undefined, group: check.section === 'status' ? 'visa' : 'other' };
+  if (check) {
+    return {
+      ...check,
+      section: undefined,
+      group: check.section ? (CHECK_SECTION_TO_LIVING_GROUP[check.section] ?? 'other') : 'other',
+    };
+  }
   const isStatus = key.toLowerCase().includes('status');
   return {
     key,
@@ -328,7 +398,14 @@ export function livingFieldDef(key: string): FieldDef {
     type: isStatus ? 'select' : 'textarea',
     options: isStatus ? statusOptions : undefined,
     group: 'other',
+    allowDontKnow: !isStatus,
   };
+}
+
+export function formatIntakeAnswer(value?: string): string {
+  if (!value) return '';
+  if (value === DONT_KNOW_VALUE) return "Don't know yet";
+  return value;
 }
 
 export function livingIntakeFields(keys: string[]): FieldDef[] {
@@ -358,4 +435,11 @@ export function inputsFieldsForRoute(checkFieldKeys: string[], livingFieldKeys: 
   const editableCheck = checkFieldKeys.filter((k) => !INPUTS_EXCLUDED_KEYS.has(k));
   const merged = [...new Set([...editableCheck, ...livingFieldKeys])];
   return merged.map(livingFieldDef);
+}
+
+export function inputsFieldsGrouped(
+  checkFieldKeys: string[],
+  livingFieldKeys: string[],
+): Array<{ group: LivingFieldGroup; label: string; fields: FieldDef[] }> {
+  return groupLivingFields(inputsFieldsForRoute(checkFieldKeys, livingFieldKeys));
 }

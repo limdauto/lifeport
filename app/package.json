@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "convex dev --typecheck=disable --start 'next dev -p 3000'",
+    "predev": "node scripts/ensure-auth-keys.mjs && node scripts/sync-convex-env.mjs",
+    "dev": "convex dev --typecheck=disable --run devSeed:seedDevAdmin --start 'next dev -p 3000'",
+    "sync:env": "node scripts/ensure-auth-keys.mjs && node scripts/sync-convex-env.mjs",
     "dev:next": "next dev -p 3000",
-    "dev:convex": "convex dev --typecheck=disable",
+    "dev:convex": "npm run sync:env && convex dev --typecheck=disable --run devSeed:seedDevAdmin",
+    "seed:admin": "npm run sync:env && convex run devSeed:seedDevAdmin",
     "verify": "node scripts/verify-flow.mjs",
     "verify:paid": "node scripts/verify-paid-flow.mjs",
     "verify:regen": "node scripts/verify-regen-flow.mjs",
@@ -15,6 +18,8 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@auth/core": "^0.37.0",
+    "@convex-dev/auth": "^0.0.80",
     "convex": "^1.40.0",
     "next": "16.2.7",
     "react": "19.2.4",

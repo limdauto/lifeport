@@ -7,7 +7,7 @@ export const CHECK_SECTION_PLACEHOLDERS = [
   { sectionKey: 'hidden_dependencies', title: 'Hidden dependencies' },
   { sectionKey: 'likely_friction_areas', title: 'Likely friction areas' },
   { sectionKey: 'recommended_next_step', title: 'Recommended next step' },
-  { sectionKey: 'premium_preview', title: 'Unlock Living Report' },
+  { sectionKey: 'premium_preview', title: 'Unlock Lifeport Plan' },
 ] as const;
 
 export function checkProgressMessage(

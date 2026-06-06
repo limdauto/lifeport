@@ -8,15 +8,11 @@ import { FormEvent, useState } from 'react';
 import { Markdown } from '@/components/Markdown';
 import { RiskBadge } from '@/components/RiskBadge';
 import { Button } from '@/components/marketing/Button';
-import { getAdminSecret } from '@/lib/adminSession';
+import { StatusBadge } from '@/components/admin/StatusBadge';
 import { PAID_PRODUCT_NAME } from '@/lib/copy';
 
 export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
-  const secret = getAdminSecret();
-  const data = useQuery(
-    api.admin.getCaseAdminDetail,
-    secret ? { adminSecret: secret, caseId } : 'skip',
-  );
+  const data = useQuery(api.admin.getCaseAdminDetail, { caseId });
   const updateSection = useMutation(api.admin.updateLivingSection);
   const publishReport = useMutation(api.admin.publishLivingReport);
   const addNote = useMutation(api.admin.addAdminNote);
@@ -25,7 +21,6 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
   const [publishing, setPublishing] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  if (!secret) return null;
   if (data === undefined) {
     return <p className="text-on-surface-variant">Loading case…</p>;
   }
@@ -40,12 +35,11 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
     (livingReport.status === 'needs_review' || livingReport.status === 'ready');
 
   async function onPublish() {
-    if (!livingReport || !secret) return;
+    if (!livingReport) return;
     setPublishing(true);
     setMessage(null);
     try {
       const result = await publishReport({
-        adminSecret: secret,
         caseId,
         reportId: livingReport._id,
       });
@@ -59,10 +53,9 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
 
   async function onAddNote(e: FormEvent) {
     e.preventDefault();
-    if (!secret || !noteBody.trim()) return;
+    if (!noteBody.trim()) return;
     try {
       await addNote({
-        adminSecret: secret,
         caseId,
         reportId: livingReport?._id,
         body: noteBody,
@@ -96,7 +89,7 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
           </Button>
           {canPublish ? (
             <Button size="sm" disabled={publishing} onClick={onPublish}>
-              {publishing ? 'Publishing…' : 'Publish Living Report'}
+              {publishing ? 'Publishing…' : `Publish ${PAID_PRODUCT_NAME}`}
             </Button>
           ) : null}
         </div>
@@ -113,12 +106,14 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
           <section>
             <h2 className="text-lg font-semibold text-on-surface">{PAID_PRODUCT_NAME}</h2>
             {!livingReport ? (
-              <p className="mt-2 text-sm text-on-surface-variant">No living report yet.</p>
+              <p className="mt-2 text-sm text-on-surface-variant">No {PAID_PRODUCT_NAME} yet.</p>
             ) : (
               <>
-                <p className="mt-1 text-sm text-on-surface-variant">
-                  Status: <strong>{livingReport.status}</strong> · {livingSections.length}{' '}
-                  sections
+                <p className="mt-1 flex flex-wrap items-center gap-2 text-sm text-on-surface-variant">
+                  <StatusBadge kind="report" status={livingReport.status} />
+                  <span>
+                    · {livingSections.length} sections
+                  </span>
                 </p>
                 <div className="mt-4 space-y-6">
                   {livingSections.map((section) => (
@@ -126,9 +121,7 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
                       key={section._id}
                       section={section}
                       onSave={async (content) => {
-                        if (!secret) return;
                         await updateSection({
-                          adminSecret: secret,
                           sectionId: section._id,
                           contentMarkdown: content,
                         });
@@ -152,8 +145,8 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
                 packages.map((pkg) => (
                   <li key={pkg._id} className="text-on-surface-variant">
                     <span className="font-medium text-on-surface">{pkg.title}</span>
-                    <span className="ml-2 rounded-full bg-surface-container-high px-2 py-0.5 text-xs">
-                      {pkg.status}
+                    <span className="ml-2">
+                      <StatusBadge kind="package" status={pkg.status} />
                     </span>
                   </li>
                 ))
@@ -192,7 +185,7 @@ export function AdminCaseDetail({ caseId }: { caseId: Id<'cases'> }) {
             <ul className="mt-3 max-h-64 space-y-2 overflow-y-auto text-xs">
               {jobs.map((job) => (
                 <li key={job._id} className="text-on-surface-variant">
-                  <span className="font-medium text-on-surface">{job.type}</span> · {job.status}
+                  <StatusBadge kind="job" status={job.status} jobType={job.type} />
                   {job.error ? (
                     <span className="block text-error">{job.error}</span>
                   ) : null}
@@ -230,9 +223,7 @@ function SectionEditor({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h3 className="font-semibold text-on-surface">{section.title}</h3>
         <div className="flex items-center gap-2">
-          <span className="rounded-full bg-surface-container-high px-2 py-0.5 text-xs text-on-surface-variant">
-            {section.status}
-          </span>
+          <StatusBadge kind="section" status={section.status} />
           {section.riskLevel ? <RiskBadge level={section.riskLevel} /> : null}
         </div>
       </div>

@@ -72,6 +72,11 @@ export const PACKAGE_CATALOG: Record<PackageKey, PackageCatalogEntry> = {
     outcome: 'Hands-on sequencing for arrival sprint and admin cutover',
     priceFrom: 799,
   },
+  day_one_arrival_pack: {
+    title: 'Day 1 Arrival Pack',
+    outcome: 'eSIM setup, airport-to-door transport, first-night essentials and landing checklist',
+    priceFrom: 129,
+  },
   school_nursery_setup: {
     title: 'School & Nursery Setup',
     outcome: 'Admissions, catchment, nursery waitlists and year-group mapping',

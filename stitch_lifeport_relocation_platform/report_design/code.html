@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Your Lifeport Check — UK to Dubai</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#555d63",
+                        "on-primary-fixed": "#001e30",
+                        "on-background": "#171c20",
+                        "on-tertiary-container": "#fcfcff",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#254a65",
+                        "surface-container": "#eaeef3",
+                        "secondary-container": "#e5e2dc",
+                        "surface-container-high": "#e4e9ee",
+                        "surface-bright": "#f6faff",
+                        "on-error-container": "#93000a",
+                        "surface": "#f6faff",
+                        "on-surface": "#171c20",
+                        "on-secondary-fixed": "#1c1c18",
+                        "primary": "#3c5f7b",
+                        "background": "#f6faff",
+                        "secondary-fixed": "#e5e2dc",
+                        "surface-tint": "#3f627e",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f0f4f9",
+                        "on-primary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed-variant": "#40484e",
+                        "on-surface-variant": "#42474d",
+                        "surface-container-highest": "#dfe3e8",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed-dim": "#c9c6c1",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c2c7ce",
+                        "inverse-on-surface": "#edf1f6",
+                        "surface-dim": "#d6dadf",
+                        "surface-variant": "#dfe3e8",
+                        "on-tertiary-fixed": "#151d22",
+                        "inverse-primary": "#a7cbeb",
+                        "tertiary-fixed-dim": "#bfc8ce",
+                        "outline": "#72787e",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed": "#dbe3ea",
+                        "primary-container": "#557895",
+                        "on-secondary-fixed-variant": "#474743",
+                        "inverse-surface": "#2c3135",
+                        "tertiary-container": "#6d767c",
+                        "primary-fixed": "#cbe6ff",
+                        "secondary": "#5f5e5a",
+                        "primary-fixed-dim": "#a7cbeb",
+                        "on-secondary-container": "#656460",
+                        "on-primary-container": "#fcfcff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "section-gap": "80px",
+                        "margin-mobile": "24px",
+                        "margin-desktop": "64px",
+                        "container-max": "1200px",
+                        "gutter": "32px",
+                        "unit": "8px"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-md": ["Manrope"],
+                        "body-lg": ["Manrope"],
+                        "label-md": ["Manrope"],
+                        "display": ["Manrope"],
+                        "label-sm": ["Manrope"],
+                        "headline-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["28px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "1.4", "fontWeight": "500"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .soft-shadow {
+            box-shadow: 0 4px 20px rgba(60, 95, 123, 0.04);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #c2c7ce;
+            border-radius: 10px;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface custom-scrollbar selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-inverse-surface border-b border-outline-variant dark:border-outline fixed top-0 w-full z-50 transition-all duration-300">
+<div class="flex justify-between items-center w-full px-margin-desktop max-w-container-max mx-auto h-20">
+<div class="flex items-center gap-4">
+<img alt="Lifeport Logo" class="h-10 w-10 object-contain rounded-lg" src="https://lh3.googleusercontent.com/aida/AP1WRLtMBRTMI6FVHCR3XTHETK_ixofxnl-3wEC68aoOp89j3oOIhwG0F4WX7JP9oDrWYKbKAl68NPea5Zbb6KkKsl8APCQYMfD_0mfC_WVhsFHW-zGOkrkxdPbyLHGJbksfYQLcUqdqi37m0JRz_d4smymGuJprXcal6GfbLFi_x3hWAxZVNrf0X_PWzNfJaSyisbwcVfXpgFgGbj2F9S7ErZ1LLttO_fRR_rNBR1xmcK5TPYck2Dj2Izx636g"/>
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface dark:text-inverse-on-surface">Lifeport</span>
+</div>
+<nav class="hidden md:flex items-center gap-10">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Relocation Routes</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">How it Works</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Pricing</a>
+</nav>
+<button class="bg-primary-container text-on-primary-container px-6 py-2.5 rounded-full font-label-md text-label-md font-bold hover:opacity-90 active:scale-95 transition-all">
+                Build my Plan
+            </button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Sub Header -->
+<section class="bg-surface-container-lowest py-10 border-b border-outline-variant/30">
+<div class="max-w-container-max mx-auto px-margin-desktop">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="flex items-center gap-2 mb-4 text-on-surface-variant/60 font-label-sm text-label-sm">
+<span>REPORTS</span>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-on-surface-variant">YOUR LIFEPORT CHECK</span>
+</nav>
+<h1 class="font-display text-display text-on-surface mb-2">Your Lifeport Check — UK to Dubai</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                            A comprehensive first look at the key regulatory, financial, and logistical areas your move from London to the UAE will affect.
+                        </p>
+</div>
+<div class="flex flex-col items-end gap-4">
+<div class="flex items-center gap-2 bg-surface-container px-4 py-2 rounded-full border border-outline-variant/50">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">analytics</span>
+<span class="font-label-md text-label-md text-on-surface">6 sections analyzed</span>
+</div>
+<button class="bg-primary text-on-primary px-8 py-3.5 rounded-xl font-label-md text-label-md font-bold soft-shadow hover:opacity-90 active:scale-95 transition-all">
+                            Open Living Report
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Layout -->
+<div class="max-w-container-max mx-auto px-margin-desktop py-12 flex flex-col md:flex-row gap-12">
+<!-- Sidebar Nav -->
+<aside class="w-full md:w-64 flex-shrink-0">
+<div class="sticky top-32 space-y-2">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider mb-6 pl-4">Jump To</p><div class="flex gap-2 px-4 mb-4"><button class="flex-1 py-1.5 rounded-full bg-primary text-on-primary text-[10px] font-bold uppercase tracking-wider">By Section</button><button class="flex-1 py-1.5 rounded-full bg-surface-container text-on-surface-variant text-[10px] font-bold uppercase tracking-wider hover:bg-outline-variant/20">By Category</button></div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-primary-container text-on-primary-container font-label-md text-label-md transition-all" href="#your-move">
+<span class="material-symbols-outlined text-xl">person</span>
+                            Your move
+                        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all font-label-md text-label-md" href="#lifeport-found">
+<span class="material-symbols-outlined text-xl">search</span>
+                            What Lifeport found
+                        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all font-label-md text-label-md" href="#dependencies">
+<span class="material-symbols-outlined text-xl">account_tree</span>
+                            Hidden dependencies
+                        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all font-label-md text-label-md" href="#friction">
+<span class="material-symbols-outlined text-xl">warning</span>
+                            Likely friction areas
+                        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all font-label-md text-label-md" href="#next-step">
+<span class="material-symbols-outlined text-xl">lightbulb</span>
+                            Recommended next step
+                        </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all font-label-md text-label-md" href="#unlock">
+<span class="material-symbols-outlined text-xl">workspace_premium</span>
+                            Unlock Living Report
+                        </a>
+</nav>
+<div class="mt-12 p-6 bg-secondary-container/30 rounded-2xl border border-outline-variant/30">
+<p class="font-label-sm text-label-sm text-on-secondary-container mb-2">PROGRESS</p>
+<div class="w-full h-1.5 bg-outline-variant/30 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[15%]" id="progress-bar"></div>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-2">Section 1 of 6</p>
+</div>
+</div>
+</aside>
+<!-- Content Area -->
+<div class="flex-1 space-y-12">
+<!-- Section 1: Your move -->
+<section class="bg-surface-container-lowest rounded-[1.5rem] p-unit*4 md:p-8 soft-shadow border border-outline-variant/20 scroll-mt-32" id="your-move">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary">01</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">OVERVIEW</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Your move</h2>
+</div>
+</div>
+<span class="bg-surface-container px-3 py-1 rounded-full font-label-sm text-label-sm text-on-surface-variant">Unknown risk</span>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="space-y-6">
+<div class="bg-surface p-6 rounded-2xl border border-outline-variant/10">
+<p class="text-on-surface-variant font-body-md mb-4 leading-relaxed">
+<span class="font-bold text-on-surface">Lin Hoang</span> is planning a move from <span class="font-bold text-on-surface">United Kingdom</span> to <span class="font-bold text-on-surface">United Arab Emirates</span> around <span class="font-bold text-on-surface">1990-11-31</span>, travelling as <span class="font-bold text-on-surface">family</span>.
+                                </p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">priority_high</span>
+<p class="font-label-md text-label-md text-on-surface-variant">Top concern: <span class="text-on-surface">just everything</span></p>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 gap-3"><div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant/10 border-l-4 border-l-primary"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary">assignment_ind</span><span class="font-label-md text-label-md text-on-surface">Visa</span></div><span class="bg-secondary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-on-secondary-container">Not Started</span></div><div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant/10 border-l-4 border-l-tertiary"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-tertiary">home</span><span class="font-label-md text-label-md text-on-surface">Housing</span></div><span class="bg-secondary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-on-secondary-container">Not Started</span></div><div class="flex items-center justify-between p-4 bg-surface rounded-xl border border-outline-variant/10 border-l-4 border-l-primary-container"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-primary-container">account_balance</span><span class="font-label-md text-label-md text-on-surface">Banking</span></div><span class="bg-secondary-container px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider text-on-secondary-container">Not Started</span></div></div>
+</div>
+</section>
+<!-- Section 2: What Lifeport found -->
+<section class="bg-surface-container-lowest rounded-[1.5rem] p-8 soft-shadow border border-outline-variant/20 scroll-mt-32" id="lifeport-found">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary">02</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">REFERENCE</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">What Lifeport found</h2>
+</div>
+</div>
+<span class="bg-error-container px-3 py-1 rounded-full font-label-sm text-label-sm text-on-error-container font-bold">High risk</span>
+</div>
+<div class="space-y-4"><div class="flex gap-4 p-5 bg-surface rounded-2xl group hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/5"><div class="flex flex-col items-center gap-1 w-12 flex-shrink-0"><span class="material-symbols-outlined text-primary-container">account_balance</span><span class="text-[10px] font-bold uppercase text-primary-container">Banking</span></div><p class="font-body-md text-body-md text-on-surface">Banking not started — likely blocks housing applications and utility setups.</p></div><div class="flex gap-4 p-5 bg-surface rounded-2xl group hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/5"><div class="flex flex-col items-center gap-1 w-12 flex-shrink-0"><span class="material-symbols-outlined text-error">payments</span><span class="text-[10px] font-bold uppercase text-error">Tax</span></div><p class="font-body-md text-body-md text-on-surface">Your UK departure date, UK ties and return visits can affect your Statutory Residence Test and split-year position.</p></div><div class="flex gap-4 p-5 bg-surface rounded-2xl group hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/5"><div class="flex flex-col items-center gap-1 w-12 flex-shrink-0"><span class="material-symbols-outlined text-primary">assignment_ind</span><span class="text-[10px] font-bold uppercase text-primary">Visa</span></div><p class="font-body-md text-body-md text-on-surface">A UAE resident setup often depends on a sequence: entry/residency process, medical fitness, Emirates ID, health insurance, banking, tenancy and utilities.</p></div><div class="flex gap-4 p-5 bg-surface rounded-2xl group hover:bg-surface-container transition-colors cursor-pointer border border-outline-variant/5"><div class="flex flex-col items-center gap-1 w-12 flex-shrink-0"><span class="material-symbols-outlined text-primary-container">account_balance</span><span class="text-[10px] font-bold uppercase text-primary-container">Banking</span></div><p class="font-body-md text-body-md text-on-surface">Dubai banking is rarely just 'open an app': salary letters, Emirates ID, UAE address, source-of-funds checks and fallback money access matter.</p></div></div>
+</section>
+<!-- Section 3: Hidden dependencies -->
+<section class="bg-surface-container-lowest rounded-[1.5rem] p-8 soft-shadow border-l-4 border-l-error scroll-mt-32" id="dependencies">
+<div class="flex items-center justify-between mb-10">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary">03</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">CRITICAL PATH</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Hidden dependencies</h2>
+</div>
+</div>
+<span class="bg-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm text-on-secondary-container font-bold">Medium risk</span>
+</div>
+<p class="font-label-md text-label-md text-error uppercase tracking-widest mb-8">UAE setup dependency chain:</p>
+<div class="relative pl-8 space-y-12 before:absolute before:left-[15px] before:top-2 before:bottom-2 before:w-[2px] before:bg-outline-variant/30"><div class="relative"><div class="absolute -left-[24px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest"></div><div class="flex items-center gap-2 mb-1"><span class="text-[10px] font-bold uppercase text-primary">Visa &amp; Identity</span></div><h4 class="font-label-md text-label-md text-on-surface mb-1">Residence visa / entry permit → medical fitness test</h4><p class="text-on-surface-variant font-label-sm text-label-sm">adult residence applicants typically need medical fitness clearance</p></div><div class="relative"><div class="absolute -left-[24px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest"></div><div class="flex items-center gap-2 mb-1"><span class="text-[10px] font-bold uppercase text-primary">Visa &amp; Identity</span></div><h4 class="font-label-md text-label-md text-on-surface mb-1">Medical fitness → Emirates ID biometrics</h4><p class="text-on-surface-variant font-label-sm text-label-sm">ID underpins most local admin</p></div><div class="relative"><div class="absolute -left-[24px] top-1 w-4 h-4 rounded-full bg-primary border-4 border-surface-container-lowest"></div><div class="flex items-center gap-2 mb-1"><span class="text-[10px] font-bold uppercase text-primary">Visa &amp; Identity</span></div><h4 class="font-label-md text-label-md text-on-surface mb-1">Emirates ID + health insurance → residence permit issuance</h4><p class="text-on-surface-variant font-label-sm text-label-sm">valid health insurance is linked to residence processes</p></div><div class="relative"><div class="absolute -left-[24px] top-1 w-4 h-4 rounded-full bg-primary-container border-4 border-surface-container-lowest"></div><div class="flex items-center gap-2 mb-1"><span class="text-[10px] font-bold uppercase text-primary-container">Banking</span></div><h4 class="font-label-md text-label-md text-on-surface mb-1">Emirates ID + salary certificate → UAE bank account</h4><p class="text-on-surface-variant font-label-sm text-label-sm">source-of-funds and KYC checks are common</p></div></div>
+<div class="mt-12 p-6 bg-error-container/10 rounded-2xl border border-error/10 italic text-on-surface-variant font-label-sm text-label-sm">
+                        Full dependency map in your Living Report.
+                    </div>
+</section>
+<!-- Section 4: Likely friction areas -->
+<section class="bg-surface-container-lowest rounded-[1.5rem] p-8 soft-shadow border border-outline-variant/20 scroll-mt-32" id="friction">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary">04</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">REFERENCE</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Likely friction areas</h2>
+</div>
+</div>
+<span class="bg-secondary-container px-3 py-1 rounded-full font-label-sm text-label-sm text-on-secondary-container font-bold">Medium risk</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Based on your <span class="font-bold text-on-surface">UK to Dubai</span> route, these areas need attention:</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="flex items-start gap-3 p-4 bg-surface rounded-xl border border-outline-variant/10 border-l-4 border-l-error"><div class="flex flex-col gap-1"><div class="flex items-center gap-1"><span class="material-symbols-outlined text-error text-sm" style="font-variation-settings: 'FILL' 1;">error</span><span class="text-[10px] font-bold uppercase text-error">Tax</span></div><span class="font-label-md text-label-md">UK tax residence and split-year readiness</span></div></div><div class="flex items-start gap-3 p-4 bg-surface rounded-xl border border-outline-variant/10 border-l-4 border-l-primary"><div class="flex flex-col gap-1"><div class="flex items-center gap-1"><span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">description</span><span class="text-[10px] font-bold uppercase text-primary">Visa</span></div><span class="font-label-md text-label-md">Document attestation: degree, marriage, etc.</span></div></div><div class="flex items-start gap-3 p-4 bg-surface rounded-xl border border-outline-variant/10 border-l-4 border-l-primary-container"><div class="flex flex-col gap-1"><div class="flex items-center gap-1"><span class="material-symbols-outlined text-primary-container text-sm" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span><span class="text-[10px] font-bold uppercase text-primary-container">Banking</span></div><span class="font-label-md text-label-md">Dubai banking readiness and first-month plan</span></div></div><div class="flex items-start gap-3 p-4 bg-surface rounded-xl border border-outline-variant/10 border-l-4 border-l-error"><div class="flex flex-col gap-1"><div class="flex items-center gap-1"><span class="material-symbols-outlined text-error text-sm" style="font-variation-settings: 'FILL' 1;">local_post_office</span><span class="text-[10px] font-bold uppercase text-error">Tax</span></div><span class="font-label-md text-label-md">UK departure admin: HMRC, P85/SA109</span></div></div></div>
+</section>
+<!-- Section 5: Recommended next step -->
+<section class="bg-surface-container-lowest rounded-[1.5rem] p-8 soft-shadow border border-outline-variant/20 scroll-mt-32" id="next-step">
+<div class="flex items-center justify-between mb-8">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary">05</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">REFERENCE</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Recommended next step</h2>
+</div>
+</div>
+<span class="bg-primary-fixed px-3 py-1 rounded-full font-label-sm text-label-sm text-on-primary-fixed font-bold">Low risk</span>
+</div>
+<div class="p-8 bg-primary/5 rounded-3xl border border-primary/10">
+<p class="font-body-lg text-body-lg text-on-surface mb-6 leading-relaxed">
+                            Your free Lifeport Check covers the first look. For a <span class="font-bold underline decoration-primary/30">private, updatable report</span> with timeline, risk flags, expert questions, and setup packages, unlock your <span class="font-bold">Living Report</span>.
+                        </p>
+<p class="font-label-md text-label-md text-on-surface-variant">From £499 for this route.</p>
+</div>
+</section>
+<!-- Section 6: Unlock Living Report -->
+<section class="relative overflow-hidden bg-primary text-on-primary rounded-[2rem] p-12 soft-shadow scroll-mt-32" id="unlock">
+<!-- Decorative Background Elements -->
+<div class="absolute top-0 right-0 w-96 h-96 bg-primary-container opacity-20 rounded-full translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
+<div class="absolute bottom-0 left-0 w-64 h-64 bg-tertiary opacity-10 rounded-full -translate-x-1/2 translate-y-1/2 blur-2xl"></div>
+<div class="relative z-10 text-center max-w-2xl mx-auto">
+<div class="inline-flex items-center gap-2 bg-on-primary/10 px-4 py-1.5 rounded-full mb-8 backdrop-blur-sm border border-on-primary/10">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm font-bold uppercase tracking-widest">Premium Feature</span>
+</div>
+<h2 class="font-display text-display mb-6">Unlock your Lifeport Living Report</h2>
+<p class="font-body-lg text-body-lg text-on-primary/80 mb-10">
+                            Get a full, private relocation report that updates as your move changes, with your personalised timeline, hidden dependencies, risk flags, document needs, expert questions, and setup packages.
+                        </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+<button class="w-full sm:w-auto bg-surface text-primary px-10 py-4 rounded-2xl font-label-md text-label-md font-bold hover:bg-white transition-all shadow-xl">
+                                Unlock your Living Report
+                            </button>
+<span class="text-on-primary/60 font-label-md text-label-md">From £499 for UK to Dubai</span>
+</div>
+</div>
+</section>
+<!-- Setup Packages -->
+<div class="pt-12">
+<h3 class="font-headline-md text-headline-md mb-8">Setup packages to consider</h3>
+<div class="grid md:grid-cols-2 gap-6"><div class="bg-surface-container-lowest p-8 rounded-3xl soft-shadow border border-outline-variant/10 border-t-4 border-t-error group cursor-pointer hover:-translate-y-1 transition-all"><div class="flex justify-between items-start mb-2"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-error text-sm">payments</span><span class="text-[10px] font-bold uppercase text-error">Tax</span></div><span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span></div><h4 class="font-headline-md text-headline-md text-on-surface mb-4">Tax Residence Packet</h4><p class="font-body-md text-body-md text-on-surface-variant mb-6">SRT, split-year, P85/SA109 and residence timing need coordinated review.</p><p class="font-label-md text-label-md text-primary font-bold">From £399</p></div><div class="bg-surface-container-lowest p-8 rounded-3xl soft-shadow border border-outline-variant/10 border-t-4 border-t-primary-container group cursor-pointer hover:-translate-y-1 transition-all"><div class="flex justify-between items-start mb-2"><div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary-container text-sm">account_balance</span><span class="text-[10px] font-bold uppercase text-primary-container">Banking</span></div><span class="material-symbols-outlined text-primary group-hover:translate-x-1 transition-transform">arrow_forward</span></div><h4 class="font-headline-md text-headline-md text-on-surface mb-4">Banking Readiness</h4><p class="font-body-md text-body-md text-on-surface-variant mb-6">Banking not started — address and immigration proof sequencing needed.</p><p class="font-label-md text-label-md text-primary font-bold">From £199</p></div></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-primary-container border-t border-outline-variant mt-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-16 max-w-container-max mx-auto">
+<div class="col-span-1 md:col-span-1">
+<div class="flex items-center gap-3 mb-6">
+<img alt="Lifeport Logo" class="h-8 w-8 object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLtbD9QT7KPokbOh-01qxEYqT8PCxzxpMeXG-VNWYyHR3E2c6u4k2ZYjQ8HTpJaFYsJLUG1HRJgNGvPyG-C62JSr4oAE_hOY5b09OBaCsGmCwAjx49abYo_sasEvovbq5o5Jum2QN5yzRgXccscn_NC0Yad3iuyKXU5fhHdWHjBC4Z5_keVPharp8e4P3_-IKTm9M6-TgUEMFW9X3CX5YCr-UZwKVp6c-xseDrGsvsJ2nHweuc5CxTIiR7Yc"/>
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Lifeport</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">
+                    Reliable relocation planning for modern global citizens.
+                </p>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-on-surface font-bold mb-6">Process</h5>
+<ul class="space-y-4">
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Immigration</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Tax</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Banking</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Housing</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-label-md text-label-md text-on-surface font-bold mb-6">Company</h5>
+<ul class="space-y-4">
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Our Mission</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Legal</a></li>
+<li><a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Compliance</a></li>
+</ul>
+</div>
+<div class="bg-surface p-6 rounded-2xl border border-outline-variant/10">
+<h5 class="font-label-md text-label-md text-on-surface font-bold mb-4">Contact Support</h5>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-4">Need help with your report? Our experts are available for consult.</p>
+<button class="text-primary font-bold font-label-sm text-label-sm underline hover:text-primary-container">Chat with an expert</button>
+</div>
+</div>
+<div class="px-margin-desktop py-8 border-t border-outline-variant/30 max-w-container-max mx-auto">
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-60">
+                © 2024 Lifeport. Lifeport is not a replacement for regulated legal or financial advice.
+            </p>
+</div>
+</footer>
+<script>
+        // Smooth scroll active state handler
+        window.addEventListener('scroll', () => {
+            const sections = ['your-move', 'lifeport-found', 'dependencies', 'friction', 'next-step', 'unlock'];
+            const navLinks = document.querySelectorAll('aside nav a');
+            const progressBar = document.getElementById('progress-bar');
+            
+            let current = "";
+            sections.forEach((section, index) => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const sectionTop = element.offsetTop;
+                    if (window.scrollY >= sectionTop - 150) {
+                        current = section;
+                        // Update progress bar
+                        const progress = ((index + 1) / sections.length) * 100;
+                        progressBar.style.width = progress + '%';
+                    }
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('bg-primary-container', 'text-on-primary-container');
+                link.classList.add('text-on-surface-variant');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.remove('text-on-surface-variant');
+                    link.classList.add('bg-primary-container', 'text-on-primary-container');
+                }
+            });
+        });
+    </script>
+</body></html>

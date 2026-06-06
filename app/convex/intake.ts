@@ -26,19 +26,17 @@ export const submitCheck = mutation({
 
     let user = await ctx.db
       .query('users')
-      .withIndex('by_email', (q) => q.eq('email', email))
+      .withIndex('email', (q) => q.eq('email', email))
       .unique();
 
     if (!user) {
       const userId = await ctx.db.insert('users', {
         email,
         name,
-        createdAt: now,
-        updatedAt: now,
       });
       user = (await ctx.db.get(userId))!;
-    } else {
-      await ctx.db.patch(user._id, { name, updatedAt: now });
+    } else if (name && user.name !== name) {
+      await ctx.db.patch(user._id, { name });
     }
 
     const caseId = await ctx.db.insert('cases', {
@@ -178,7 +176,7 @@ export const submitLivingIntake = mutation({
   handler: async (ctx, args) => {
     const caseDoc = await ctx.db.get(args.caseId);
     if (!caseDoc) throw new Error('Case not found');
-    if (caseDoc.paymentStatus !== 'paid') throw new Error('Living Report requires payment');
+    if (caseDoc.paymentStatus !== 'paid') throw new Error('Lifeport Plan requires payment');
 
     const profile = await ctx.db
       .query('moveProfiles')
@@ -213,7 +211,7 @@ export const submitLivingIntake = mutation({
       type: 'living',
       status: 'generating',
       version: 1,
-      title: `Your Living Report — ${route.title}`,
+      title: `Your Lifeport Plan — ${route.title}`,
       createdAt: now,
       updatedAt: now,
     });
@@ -252,7 +250,7 @@ export const updateMoveProfile = mutation({
   handler: async (ctx, args) => {
     const caseDoc = await ctx.db.get(args.caseId);
     if (!caseDoc) throw new Error('Case not found');
-    if (caseDoc.paymentStatus !== 'paid') throw new Error('Living Report requires payment');
+    if (caseDoc.paymentStatus !== 'paid') throw new Error('Lifeport Plan requires payment');
 
     const profile = await ctx.db
       .query('moveProfiles')
@@ -303,7 +301,7 @@ export const requestRegeneration = mutation({
   handler: async (ctx, args) => {
     const caseDoc = await ctx.db.get(args.caseId);
     if (!caseDoc) throw new Error('Case not found');
-    if (caseDoc.paymentStatus !== 'paid') throw new Error('Living Report requires payment');
+    if (caseDoc.paymentStatus !== 'paid') throw new Error('Lifeport Plan requires payment');
 
     const profile = await ctx.db
       .query('moveProfiles')
@@ -322,7 +320,7 @@ export const requestRegeneration = mutation({
       .withIndex('by_case_type', (q) => q.eq('caseId', args.caseId).eq('type', 'living'))
       .order('desc')
       .first();
-    if (!report) throw new Error('Living Report not found');
+    if (!report) throw new Error('Lifeport Plan not found');
 
     const now = Date.now();
     const jobId = await ctx.db.insert('generationJobs', {

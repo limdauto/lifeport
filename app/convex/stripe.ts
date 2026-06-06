@@ -42,7 +42,7 @@ export const createCheckout = action({
             currency: 'gbp',
             unit_amount: route.livingPriceGbp * 100,
             product_data: {
-              name: `Lifeport Living Report — ${route.title}`,
+              name: `Lifeport Plan — ${route.title}`,
               description: 'Private, updatable relocation report',
             },
           },

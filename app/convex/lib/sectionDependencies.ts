@@ -1,6 +1,6 @@
 /** Which living-report sections are affected when a profile field changes. */
 export const FIELD_AFFECTED_SECTIONS: Record<string, string[]> = {
-  moveDate: ['timeline', 'tax_residence', 'uk_departure_admin', 'first_90_days', 'risk_map', 'hidden_dependencies'],
+  moveDate: ['timeline', 'tax_residence', 'uk_departure_admin', 'day_one_arrival', 'first_90_days', 'risk_map', 'hidden_dependencies'],
   householdType: ['family_school_dependants', 'family', 'housing_ejari_utilities', 'housing_right_to_rent_utilities', 'healthcare_insurance', 'estate_wills_guardianship', 'move_profile'],
   visaStatus: ['visa_admin_evisa_share_codes', 'uae_residency_emirates_id', 'student_visa_cas_evisa', 'timeline', 'risk_map', 'banking_money', 'hidden_dependencies'],
   primaryApplicantVisaStatus: ['visa_admin_evisa_share_codes', 'family_school_nursery_dependants', 'timeline', 'hidden_dependencies'],
@@ -26,7 +26,10 @@ export const FIELD_AFFECTED_SECTIONS: Record<string, string[]> = {
   schoolNeeds: ['family_school_nursery_dependants', 'housing_right_to_rent_utilities'],
   schoolPreferences: ['family_school_nursery_dependants', 'housing_right_to_rent_utilities'],
   university: ['student_visa_cas_evisa', 'university_registration', 'banking_money_parent_funding'],
-  courseStartDate: ['timeline', 'first_week_first_term'],
+  courseStartDate: ['timeline', 'day_one_arrival', 'first_week_first_term'],
+  arrivalDateTime: ['day_one_arrival', 'first_week_first_term'],
+  airportArrivalPlan: ['day_one_arrival'],
+  ukPhoneSimPlan: ['day_one_arrival', 'banking_money_parent_funding'],
   destinationVisaStatus: ['destination_setup', 'timeline'],
   currentUkTaxResidenceStatus: ['tax_residence', 'uk_departure_admin', 'risk_map'],
   taxResidenceLastFiveYears: ['tax_residence', 'uk_departure_admin'],
@@ -50,7 +53,13 @@ export const FIELD_AFFECTED_SECTIONS: Record<string, string[]> = {
   degreeProfessionalQualifications: ['credentials_licences_attestation', 'documents_credentials'],
   marriageBirthSchoolRecords: ['documents_family_records', 'family_school_dependants'],
   shippingStorageNeeds: ['shipping_storage_possessions', 'timeline'],
-  temporaryAccommodationNeeds: ['housing_ejari_utilities', 'housing_right_to_rent_utilities', 'accommodation_housing'],
+  temporaryAccommodationNeeds: [
+    'day_one_arrival',
+    'first_90_days',
+    'housing_ejari_utilities',
+    'housing_right_to_rent_utilities',
+    'accommodation_housing',
+  ],
   healthConditionsPrescriptions: ['healthcare_insurance', 'healthcare_gp_nhs_insurance', 'healthcare_gp_wellbeing'],
   existingWillsEstatePlans: ['estate_wills_guardianship'],
   visaRoute: ['visa_admin_evisa_share_codes', 'hidden_dependencies'],
@@ -80,6 +89,12 @@ export const FIELD_AFFECTED_SECTIONS: Record<string, string[]> = {
   destinationHealthcareStatus: ['destination_setup', 'healthcare_insurance'],
   destinationHousingStatus: ['destination_setup', 'housing_ejari_utilities'],
 };
+
+export function fieldsForSection(sectionKey: string): string[] {
+  return Object.entries(FIELD_AFFECTED_SECTIONS)
+    .filter(([, sections]) => sections.includes(sectionKey))
+    .map(([field]) => field);
+}
 
 export function affectedSectionsForChanges(
   changes: Record<string, unknown>,

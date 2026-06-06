@@ -35,6 +35,7 @@ const SECTION_TITLES: Record<string, string> = {
   university_registration: 'University Registration',
   student_safety_scams: 'Safety & Scams',
   phone_transport_arrival_basics: 'Phone, Transport & Arrival Basics',
+  day_one_arrival: 'Day 1 Arrival',
   first_90_days: 'First 90 Days',
   first_week_first_term: 'First Week & First Term',
   recommended_packages: 'Recommended Packages',

@@ -43,7 +43,12 @@ function frictionForRoute(route: RouteConfig, answers: CheckAnswers): string[] {
   const base = [...route.painPoints];
   if (answers.bankingStatus === 'not_started') base.unshift('Banking not started — likely blocks housing');
   if (answers.housingStatus === 'not_started') base.push('Housing search not started');
-  if (answers.visaStatus === 'uncertain') base.push('Visa route still uncertain');
+  if (answers.visaStatus === 'uncertain' || answers.visaStatus === 'dont_know') {
+    base.push('Visa route still uncertain — needs confirmation');
+  }
+  if (answers.hasChildren === 'dont_know') base.push('Children / dependants status not confirmed yet');
+  if (answers.hasPets === 'dont_know') base.push('Pet plans not confirmed yet');
+  if (answers.ownsUkProperty === 'dont_know') base.push('UK property position not confirmed yet');
   return base.slice(0, 5);
 }
 
@@ -85,7 +90,7 @@ export function generateCheckSections(route: RouteConfig, answers: CheckAnswers)
     {
       sectionKey: 'hidden_dependencies',
       title: 'Hidden dependencies',
-      contentMarkdown: `${hiddenDeps}\n\n*Full dependency map in your Living Report.*`,
+      contentMarkdown: `${hiddenDeps}\n\n*Full dependency map in your Lifeport Plan.*`,
       riskLevel: answers.visaStatus === 'uncertain' ? 'high' : 'medium',
       status: 'generated',
       sortOrder: 3,
@@ -93,7 +98,7 @@ export function generateCheckSections(route: RouteConfig, answers: CheckAnswers)
     {
       sectionKey: 'likely_friction_areas',
       title: 'Likely friction areas',
-      contentMarkdown: `Based on your **${route.title}** route, these areas need attention:\n\n${frictionAreas}\n\n*Route-specific detail and sequencing in your Living Report.*`,
+      contentMarkdown: `Based on your **${route.title}** route, these areas need attention:\n\n${frictionAreas}\n\n*Route-specific detail and sequencing in your Lifeport Plan.*`,
       riskLevel: 'medium',
       status: 'generated',
       sortOrder: 4,
@@ -101,15 +106,15 @@ export function generateCheckSections(route: RouteConfig, answers: CheckAnswers)
     {
       sectionKey: 'recommended_next_step',
       title: 'Recommended next step',
-      contentMarkdown: `Your free Lifeport Check covers the first look. For a **private, updatable report** with timeline, risk flags, expert questions, and setup packages, unlock your **Living Report**.\n\n**From £${route.livingPriceGbp}** for this route.`,
+      contentMarkdown: `Your free Lifeport Check covers the first look. For a **private, updatable report** with timeline, risk flags, expert questions, and setup packages, unlock your **Lifeport Plan**.\n\n**From £${route.livingPriceGbp}** for this route.`,
       riskLevel: 'low',
       status: 'generated',
       sortOrder: 5,
     },
     {
       sectionKey: 'premium_preview',
-      title: 'Unlock Living Report',
-      contentMarkdown: `Your Living Report adds full analysis for: **${premiumSections}**, plus expert-review questions, package recommendations, and a change log that updates when your situation changes.\n\n**From £${route.livingPriceGbp}** for this route.`,
+      title: 'Unlock Lifeport Plan',
+      contentMarkdown: `Your Lifeport Plan adds full analysis for: **${premiumSections}**, plus expert-review questions, package recommendations, and a change log that updates when your situation changes.\n\n**From £${route.livingPriceGbp}** for this route.`,
       status: 'locked',
       sortOrder: 6,
       isPremiumLocked: true,

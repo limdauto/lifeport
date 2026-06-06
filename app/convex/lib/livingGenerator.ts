@@ -1,4 +1,10 @@
 import type { RouteConfig } from './routeConfigs';
+import {
+  countDontKnowAnswers,
+  dontKnowSectionNote,
+  formatProfileAnswer,
+  isDontKnow,
+} from './intakeAnswers';
 import { recommendedPackagesSection, routeSectionDraft } from './routeKnowledge';
 import { sectionTitle } from './sectionTitles';
 import type { CheckAnswers } from './checkGenerator';
@@ -25,7 +31,7 @@ function riskFromStatuses(answers: LivingAnswers): 'low' | 'medium' | 'high' {
     statusVal(answers, 'visaStatus', 'primaryApplicantVisaStatus'),
     statusVal(answers, 'housingStatus', 'accommodationStatus'),
     answers.bankingStatus,
-  ].filter((s) => s === 'uncertain' || s === 'not_started').length;
+  ].filter((s) => s === 'uncertain' || s === 'not_started' || isDontKnow(s)).length;
   if (uncertain >= 2) return 'high';
   if (uncertain === 1) return 'medium';
   return 'low';
@@ -67,11 +73,15 @@ function sectionContent(
     case 'executive_brief':
       return {
         riskLevel: baseRisk,
-        contentMarkdown: `${moveLine}\n\n**Primary concern:** ${answers.biggestWorry}\n\n**Route:** ${route.title}\n\nThis Living Report maps dependencies across visa, money, housing, tax, and family setup. Sections below update when your move profile changes.`,
+        contentMarkdown: `${moveLine}\n\n**Primary concern:** ${answers.biggestWorry}\n\n**Route:** ${route.title}\n\nThis Lifeport Plan maps dependencies across visa, money, housing, tax, and family setup. Sections below update when your move profile changes.${
+          countDontKnowAnswers(answers) > 0
+            ? `\n\n*You flagged **${countDontKnowAnswers(answers)}** item${countDontKnowAnswers(answers) === 1 ? '' : 's'} as don't know yet — related sections include extra guidance until you update Inputs.*`
+            : ''
+        }`,
       };
     case 'move_profile':
       return {
-        contentMarkdown: `${moveLine}\n\n| Area | Status |\n|------|--------|\n| Visa | ${answers.visaStatus} |\n| Housing | ${answers.housingStatus} |\n| Banking | ${answers.bankingStatus} |\n\n**Dependants:** ${answers.dependants ?? 'None noted'}\n\n**Top concerns:** ${answers.topConcerns ?? answers.biggestWorry}`,
+        contentMarkdown: `${moveLine}\n\n| Area | Status |\n|------|--------|\n| Visa | ${formatProfileAnswer(answers.visaStatus)} |\n| Housing | ${formatProfileAnswer(answers.housingStatus)} |\n| Banking | ${formatProfileAnswer(answers.bankingStatus)} |\n\n**Dependants:** ${isDontKnow(answers.dependants) ? "Don't know yet" : answers.dependants ?? 'None noted'}\n\n**Top concerns:** ${answers.topConcerns ?? answers.biggestWorry}`,
       };
     case 'risk_map':
       return {
@@ -128,6 +138,19 @@ function sectionContent(
         riskLevel: 'low',
         contentMarkdown: `Review wills, powers of attorney, and beneficiary designations when residency changes. Especially relevant for **${answers.householdType}** moves with dependants.`,
       };
+    case 'day_one_arrival': {
+      const draft = routeSectionDraft(route.routeKey, 'day_one_arrival', {
+        route,
+        answers,
+        baseRisk,
+      });
+      return (
+        draft ?? {
+          riskLevel: answers.moveDate ? 'medium' : 'high',
+          contentMarkdown: `**Day 1 landing checklist for ${route.title}:**\n\n- **eSIM / mobile** — activate before you need ride-hailing, maps, or banking OTPs\n- **Airport → accommodation** — confirm transport and interim address before landing\n- **Money** — international card + small local cash for first purchases\n- **Documents on person** — passport, visa/eVisa proof, accommodation confirmation\n\n${answers.moveDate ? `**Arrival anchor:** ${answers.moveDate}` : 'Add a move date in Inputs to time SIM and transport bookings.'}\n\n*Request the **Day 1 Arrival Pack** from Packages for hands-on eSIM, airport routing and first-night setup.*`,
+        }
+      );
+    }
     case 'first_90_days':
       return {
         riskLevel: 'medium',
@@ -158,11 +181,15 @@ export function generateLivingSections(
   const keys = onlyKeys ?? order;
   return keys.map((key) => {
     const { contentMarkdown, riskLevel } = sectionContent(key, route, answers);
+    const note =
+      key !== 'change_log' && key !== 'expert_questions' && key !== 'recommended_packages'
+        ? dontKnowSectionNote(key, answers)
+        : '';
     const sortOrder = order.indexOf(key) + 1;
     return {
       sectionKey: key,
       title: sectionTitle(key),
-      contentMarkdown,
+      contentMarkdown: contentMarkdown + note,
       riskLevel,
       status: 'generated',
       sortOrder: sortOrder > 0 ? sortOrder : order.length,

@@ -24,6 +24,9 @@ function moveLine(answers: LivingAnswers): string {
   }${answers.moveDate ? ` · target **${answers.moveDate}**` : ''} · **${answers.householdType}**`;
 }
 
+const DAY_ONE_PACK_NOTE =
+  '\n\n*Want this handled for you? Request the **Day 1 Arrival Pack** from Packages — eSIM provisioning, airport-to-door routing, and a personalised first-night checklist.*';
+
 function hiddenDepsUkArrival(): string {
   return `**UK arrival dependency chain (current):**
 
@@ -140,6 +143,21 @@ Interim hotel/apartment common while Emirates ID and bank account are pending.`,
     riskLevel: 'medium',
     contentMarkdown: `**Document chain:** degree certificates, marriage/birth records, school transcripts → UK apostille where needed → **UAE MOFA attestation** for official documents used in visa, banking and school admission.`,
   }),
+
+  day_one_arrival: ({ answers }) => ({
+    riskLevel: answers.moveDate ? 'medium' : 'high',
+    contentMarkdown: `**Dubai landing — first 24 hours**
+
+| Priority | What to sort |
+|----------|--------------|
+| **eSIM / mobile** | Activate UAE eSIM (Du/Etisalat) before baggage reclaim — needed for Careem, Uber, employer WhatsApp, and banking OTPs |
+| **DXB → accommodation** | Careem/Uber/RTA taxi to hotel or interim flat; have hotel or short-stay address ready (Ejari not required for hotels) |
+| **Money** | International cards work at DXB; withdraw small AED for tips; know when salary card arrives |
+| **Documents on person** | Passport, entry permit/residence proof, health insurance, hotel booking, employment letter |
+| **First night** | Confirm interim check-in, save landlord/employer contacts, test mobile data before leaving the airport zone |
+
+${answers.temporaryAccommodationNeeds ? `**Interim stay:** ${answers.temporaryAccommodationNeeds}\n\n` : ''}${answers.moveDate ? `**Arrival anchor:** ${answers.moveDate}` : '**Add your move date** in Inputs to time eSIM activation and airport pickup.'}${DAY_ONE_PACK_NOTE}`,
+  }),
 };
 
 const PROFESSIONALS_TO_UK: RouteSectionKnowledge = {
@@ -177,6 +195,21 @@ Typical UK student/professional path: passport + immigration status proof + **pr
 
 Landlords verify **right to rent** via share code. Deposit, guarantor and utility setup depend on tenancy start aligned with eVisa validity.`,
   }),
+
+  day_one_arrival: ({ answers }) => ({
+    riskLevel: answers.moveDate ? 'medium' : 'high',
+    contentMarkdown: `**UK arrival day — first 24 hours**
+
+| Priority | What to sort |
+|----------|--------------|
+| **eSIM / UK SIM** | Activate before ride-hailing and banking OTPs — airport vending machines or high-street prepay (EE, Vodafone, giffgaff) |
+| **Airport → home** | Heathrow/Gatwick Express, Elizabeth line, Tube, or pre-booked taxi; **contactless/Oyster** for London |
+| **Proof on person** | Passport, eVisa/UKVI access, tenancy or hotel confirmation, employer welcome pack |
+| **Money** | Contactless widely accepted; small GBP cash for markets; confirm first salary date |
+| **First evening** | Collect keys or hotel check-in, test mobile data, save HR/landlord contacts, plan NI number application |
+
+${answers.temporaryAccommodationNeeds ? `**Interim stay:** ${answers.temporaryAccommodationNeeds}\n\n` : ''}${answers.moveDate ? `**Arrival anchor:** ${answers.moveDate}` : '**Add your move date** in Inputs to book airport transfer and SIM delivery.'}${DAY_ONE_PACK_NOTE}`,
+  }),
 };
 
 const STUDENTS_TO_UK: RouteSectionKnowledge = {
@@ -210,6 +243,22 @@ ${answers.parentInvolved === 'yes' ? '**Parent funding flagged** — plan tuitio
   student_safety_scams: () => ({
     contentMarkdown: `**Arrival safety priorities:** verify accommodation before sending deposits, use official university payment channels, keep parent emergency contacts updated, and treat unsolicited visa/bank messages as high-risk.`,
   }),
+
+  day_one_arrival: ({ answers }) => ({
+    riskLevel: answers.moveDate || answers.arrivalDateTime ? 'medium' : 'high',
+    contentMarkdown: `**Student arrival day — first 24 hours**
+
+| Priority | What to sort |
+|----------|--------------|
+| **eSIM / UK SIM** | Activate before Uber, university apps, and bank OTPs — many students use airport eSIM or prepay SIM posted to UK address |
+| **Airport → halls / flat** | Check university pickup times; otherwise National Rail + local bus/taxi; save **16–25 Railcard** task for week one |
+| **Contactless travel** | Oyster/contactless caps apply in London; coach links (National Express, Megabus) common for regional campuses |
+| **Check-in window** | Halls often have fixed arrival slots — late flights need interim hotel; keep tenancy/halls confirmation on phone |
+| **Parent comms** | Send safe-arrival message on data (not airport Wi‑Fi only); agree emergency contact tree before travel |
+| **First purchases** | Bedding/pantry if self-catered; small GBP cash; groceries before shops close |
+
+${answers.airportArrivalPlan ? `**Your plan:** ${answers.airportArrivalPlan}\n\n` : ''}${answers.ukPhoneSimPlan ? `**SIM plan:** ${answers.ukPhoneSimPlan}\n\n` : ''}${answers.arrivalDateTime ? `**Landing:** ${answers.arrivalDateTime}` : answers.moveDate ? `**Arrival anchor:** ${answers.moveDate}` : '**Add arrival date/time** in Inputs to sequence SIM and transport.'}${DAY_ONE_PACK_NOTE}`,
+  }),
 };
 
 const FAMILIES_TO_UK: RouteSectionKnowledge = {
@@ -237,6 +286,21 @@ const FAMILIES_TO_UK: RouteSectionKnowledge = {
     contentMarkdown: `**Main applicant visa:** ${answers.primaryApplicantVisaStatus ?? answers.visaStatus}
 
 Each dependant needs their own immigration status. eVisa + share codes apply to right to work/rent checks for adults in the household.`,
+  }),
+
+  day_one_arrival: ({ answers }) => ({
+    riskLevel: answers.moveDate ? 'medium' : 'high',
+    contentMarkdown: `**Family arrival day — first 24 hours**
+
+| Priority | What to sort |
+|----------|--------------|
+| **SIMs for adults** | UK eSIM/prepay for ride-hailing, GP booking, school calls — plan a child-safe comms approach |
+| **Airport → home** | Pre-book larger taxi or estate car if luggage + pushchair; contactless rail where prams are allowed |
+| **Check-in & keys** | Align tenancy start with eVisa validity; interim hotel if completion slips — children need sleep stability |
+| **Food & pharmacy** | Locate 24h supermarket and pharmacy near interim address; pack favourite snacks for jet-lagged children |
+| **Emergency docs** | Marriage/birth certificates on person for school enquiries; GP registration cannot wait if prescriptions needed |
+
+${answers.hasChildren === 'yes' ? '**Children moving** — prioritise sleep, snacks, and school/nursery contact numbers on day one.\n\n' : ''}${answers.moveDate ? `**Arrival anchor:** ${answers.moveDate}` : '**Add your move date** in Inputs to book family airport transfer.'}${DAY_ONE_PACK_NOTE}`,
   }),
 };
 
@@ -281,6 +345,21 @@ Non-residents must report UK property/land disposals. ISA contributions generall
 
 Plan UK account continuity, card delivery abroad, 2FA tied to UK phone numbers, and destination account opening sequence.`,
   }),
+
+  day_one_arrival: ({ answers }) => ({
+    riskLevel: answers.moveDate ? 'medium' : 'high',
+    contentMarkdown: `**Departure & landing — first 24 hours**
+
+| Phase | What to sort |
+|-------|--------------|
+| **UK departure morning** | Meter readings, keys handover, mail redirect activation, carry P85/SA109 evidence copies |
+| **In transit** | Passport, visa/residence docs, pet travel papers (if applicable), medications in cabin bag |
+| **Destination eSIM** | Activate local SIM/eSIM before ride-hailing and landlord OTPs — UK number may still be needed for 2FA |
+| **Airport → interim home** | Pre-book transfer; confirm temporary accommodation check-in; small local cash |
+| **First night abroad** | Test banking card, save embassy/consulate contacts, photograph meter readings at new interim address |
+
+${answers.destinationCountry ? `**Destination:** ${answers.destinationCountry}${answers.destinationCity ? ` (${answers.destinationCity})` : ''}\n\n` : ''}${answers.temporaryAccommodationNeeds ? `**Interim stay:** ${answers.temporaryAccommodationNeeds}\n\n` : ''}${answers.moveDate ? `**Move anchor:** ${answers.moveDate}` : '**Add your move date** in Inputs to align UK departure and landing checklists.'}${DAY_ONE_PACK_NOTE}`,
+  }),
 };
 
 export const ROUTE_SECTION_KNOWLEDGE: Partial<Record<RouteKey, RouteSectionKnowledge>> = {
@@ -309,7 +388,7 @@ export function checkHiddenDependencies(route: RouteConfig, answers: LivingAnswe
   });
   if (draft) return draft.contentMarkdown;
 
-  return `**${route.title} dependencies** are mapped in your Living Report. Unlock for the full chain.`;
+  return `**${route.title} dependencies** are mapped in your Lifeport Plan. Unlock for the full chain.`;
 }
 
 export function recommendedPackagesSection(
@@ -367,6 +446,10 @@ export function packageReasonForRoute(
     property_pension_investments_packet: 'UK property, ISA, pension and broker restrictions.',
     credentials_licences_conversion: 'Driving licence exchange and degree recognition.',
     first_90_days_concierge: `Hands-on first-90-days sequencing for ${route.title}.`,
+    day_one_arrival_pack:
+      answers.moveDate || answers.arrivalDateTime
+        ? 'eSIM, airport transfer and first-night essentials for your landing day.'
+        : 'Landing-day eSIM, transport routing and first-night checklist — add your arrival date to personalise.',
   };
   return reasons[packageKey] ?? `Recommended for ${route.title}.`;
 }

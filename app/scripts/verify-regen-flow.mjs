@@ -64,7 +64,7 @@ for (let i = 0; i < 60; i++) {
   await new Promise((r) => setTimeout(r, 1000));
   const living = convexRun('reports:getLivingReport', { caseId });
   baselineSections = living.sections?.length ?? 0;
-  if (living.report?.status === 'ready' && baselineSections >= 18) break;
+  if (living.report?.status === 'ready' && baselineSections >= 19) break;
 }
 console.log(`   baseline sections: ${baselineSections}`);
 

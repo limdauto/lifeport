@@ -3,8 +3,8 @@
 import { useMutation, useQuery } from 'convex/react';
 import { api } from 'convex/_generated/api';
 import type { Id } from 'convex/_generated/dataModel';
-import { Markdown } from '@/components/Markdown';
-import { RiskBadge } from '@/components/RiskBadge';
+import { ReportPageHeader } from '@/components/report/ReportPageHeader';
+import { ReportReader, ReportSectionSkeleton } from '@/components/report/ReportReader';
 import { Button } from '@/components/marketing/Button';
 import {
   CHECK_SECTION_COUNT,
@@ -14,12 +14,12 @@ import {
 import {
   FREE_PRODUCT_NAME,
   LIVING_CTA,
-  LIVING_REPORT_PITCH,
   PAID_PRODUCT_NAME,
 } from '@/lib/copy';
 import { useEffect, useState } from 'react';
 
-const CHECK_SUBTITLE = 'A first look at the areas your move may affect.';
+const CHECK_SUBTITLE =
+  'A comprehensive first look at the key regulatory, financial, and logistical areas your move will affect.';
 
 export function CheckReport({ caseId }: { caseId: Id<'cases'> }) {
   const data = useQuery(api.reports.getCheck, { caseId });
@@ -89,120 +89,71 @@ export function CheckReport({ caseId }: { caseId: Id<'cases'> }) {
     (p) => !completedKeys.has(p.sectionKey),
   );
 
+  const sectionData = sections.map((section) => ({
+    id: section._id,
+    sectionKey: section.sectionKey,
+    title: section.title,
+    contentMarkdown: section.contentMarkdown,
+    riskLevel: section.riskLevel,
+    isPremiumLocked: section.isPremiumLocked,
+    lockedMessage: section.isPremiumLocked
+      ? `Unlock your ${PAID_PRODUCT_NAME} to see full analysis for this section.`
+      : undefined,
+  }));
+
+  const headerAction =
+    !isGenerating && caseDoc.paymentStatus === 'paid' ? (
+      <Button href={`/report/${caseId}`}>Open Lifeport Plan</Button>
+    ) : !isGenerating && route ? (
+      <Button href={`/checkout?caseId=${caseId}`}>{LIVING_CTA}</Button>
+    ) : undefined;
+
   return (
-    <div className="container-page section mx-auto max-w-3xl">
+    <div className="-mx-[var(--spacing-gutter,1.5rem)] sm:mx-0">
       {isGenerating && (
-        <GeneratingBanner
-          name={caseDoc.name}
-          origin={caseDoc.originCountry}
-          destination={caseDoc.destinationCountry}
-          routeTitle={route?.title}
-          completedCount={sections.length}
-        />
+        <div className="container-page mx-auto max-w-[1200px] pt-6">
+          <GeneratingBanner
+            name={caseDoc.name}
+            origin={caseDoc.originCountry}
+            destination={caseDoc.destinationCountry}
+            routeTitle={route?.title}
+            completedCount={sections.length}
+          />
+        </div>
       )}
 
-      <div className="flex flex-wrap items-start justify-between gap-4">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            Your {FREE_PRODUCT_NAME}
-          </p>
-          <h1 className="mt-2 text-3xl font-bold text-on-surface">{report.title}</h1>
-          <p className="mt-2 text-on-surface-variant">
-            {isGenerating ? 'Building your personalised check…' : CHECK_SUBTITLE}
-          </p>
-          {report.summary && !isGenerating && (
-            <p className="mt-3 text-on-surface-variant">{report.summary}</p>
-          )}
-        </div>
-        {!isGenerating && caseDoc.paymentStatus === 'unpaid' && route && (
-          <Button href={`/checkout?caseId=${caseId}`}>{LIVING_CTA}</Button>
-        )}
-        {!isGenerating && caseDoc.paymentStatus === 'paid' && (
-          <Button href={`/report/${caseId}`}>Open Living Report</Button>
-        )}
-      </div>
+      <ReportPageHeader
+        breadcrumb={['Reports', `Your ${FREE_PRODUCT_NAME}`]}
+        title={report.title}
+        description={isGenerating ? 'Building your personalised check…' : CHECK_SUBTITLE}
+        sectionCount={isGenerating ? undefined : sections.length}
+        action={headerAction}
+      />
 
-      <div className="mt-10 space-y-6">
-        {sections.map((section) => (
-          <article
-            key={section._id}
-            className={`rounded-xl border p-6 ${
-              section.isPremiumLocked
-                ? 'border-primary/30 bg-primary-fixed/20'
-                : 'border-outline-variant/50 bg-surface-container-lowest'
-            }`}
-          >
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="text-xl font-semibold text-on-surface">{section.title}</h2>
-              <div className="flex items-center gap-2">
-                <RiskBadge level={section.riskLevel} />
-                {section.isPremiumLocked && (
-                  <span className="rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-on-primary">
-                    Premium
-                  </span>
-                )}
-              </div>
-            </div>
-            <div className="mt-4">
-              {section.isPremiumLocked ? (
-                <p className="text-on-surface-variant">
-                  Unlock your {PAID_PRODUCT_NAME} to see full analysis for this section.
-                </p>
-              ) : (
-                <Markdown content={section.contentMarkdown} />
-              )}
-            </div>
-          </article>
-        ))}
+      <ReportReader
+        sections={sectionData}
+        layout="editorial"
+        sidebarPlaceholders={CHECK_SECTION_PLACEHOLDERS}
+        packages={!isGenerating ? packages : undefined}
+        progressIndex={isGenerating ? sections.length : undefined}
+        progressTotal={isGenerating ? CHECK_SECTION_COUNT : undefined}
+        premiumCta={
+          !isGenerating && route && caseDoc.paymentStatus !== 'paid'
+            ? {
+                href: `/checkout?caseId=${caseId}`,
+                label: LIVING_CTA,
+                priceLabel: `From £${route.livingPriceGbp} for ${route.title}`,
+              }
+            : undefined
+        }
+      />
 
-        {isGenerating &&
-          pendingPlaceholders.map((placeholder) => (
-            <SectionSkeleton key={placeholder.sectionKey} title={placeholder.title} />
+      {isGenerating && (
+        <div className="mx-auto max-w-[1200px] space-y-4 px-6 pb-12">
+          {pendingPlaceholders.map((placeholder) => (
+            <ReportSectionSkeleton key={placeholder.sectionKey} title={placeholder.title} />
           ))}
-      </div>
-
-      {!isGenerating && packages.length > 0 && (
-        <section className="mt-12">
-          <h2 className="text-xl font-semibold text-on-surface">Setup packages to consider</h2>
-          <div className="mt-4 grid gap-4 sm:grid-cols-2">
-            {packages.map((pkg) => (
-              <div
-                key={pkg._id}
-                className="rounded-xl border border-outline-variant/50 bg-surface-container-low p-5"
-              >
-                <h3 className="font-semibold text-on-surface">{pkg.title}</h3>
-                <p className="mt-2 text-sm text-on-surface-variant">{pkg.reason}</p>
-                {pkg.priceFrom != null && (
-                  <p className="mt-3 text-sm font-semibold text-primary">From £{pkg.priceFrom}</p>
-                )}
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {!isGenerating && (
-        <section
-          id="upgrade"
-          className="mt-12 rounded-2xl border border-primary/30 bg-primary-container p-8 text-center"
-        >
-          <h2 className="text-2xl font-bold text-on-primary-container">
-            Unlock your {PAID_PRODUCT_NAME}
-          </h2>
-          <p className="mx-auto mt-3 max-w-lg text-on-primary-container/90">
-            {LIVING_REPORT_PITCH}
-          </p>
-          {route && (
-            <p className="mt-2 text-sm font-semibold text-on-primary-container">
-              From £{route.livingPriceGbp} for {route.title}
-            </p>
-          )}
-        <div className="mt-6">
-          <Button variant="secondary" href={`/checkout?caseId=${caseId}`}>
-            {LIVING_CTA}
-          </Button>
         </div>
-        </section>
       )}
     </div>
   );
@@ -238,7 +189,7 @@ function GeneratingBanner({
   const progress = Math.round((completedCount / CHECK_SECTION_COUNT) * 100);
 
   return (
-    <div className="mb-8 rounded-xl border border-primary/20 bg-primary-fixed/30 p-5">
+    <div className="report-soft-shadow mb-6 rounded-xl border border-primary/20 bg-primary-fixed/30 p-5">
       <div className="flex items-center gap-3">
         <div className="h-5 w-5 shrink-0 animate-spin rounded-full border-2 border-primary/20 border-t-primary" />
         <div className="min-w-0 flex-1">
@@ -285,22 +236,6 @@ function GeneratingState({
       message={message}
       subtitle="Lifeport is reviewing your answers against this route — usually under a minute."
     />
-  );
-}
-
-function SectionSkeleton({ title }: { title: string }) {
-  return (
-    <article className="rounded-xl border border-outline-variant/30 bg-surface-container-lowest/60 p-6">
-      <div className="flex items-center justify-between gap-2">
-        <h2 className="text-xl font-semibold text-on-surface/40">{title}</h2>
-        <div className="h-5 w-16 animate-pulse rounded-full bg-outline-variant/30" />
-      </div>
-      <div className="mt-4 space-y-2">
-        <div className="h-3 w-full animate-pulse rounded bg-outline-variant/25" />
-        <div className="h-3 w-5/6 animate-pulse rounded bg-outline-variant/20" />
-        <div className="h-3 w-4/6 animate-pulse rounded bg-outline-variant/15" />
-      </div>
-    </article>
   );
 }
 

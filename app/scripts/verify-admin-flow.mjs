@@ -59,9 +59,9 @@ for (let i = 0; i < 60; i++) {
   const detail = convexRun('admin:getCaseAdminDetail', { adminSecret, caseId });
   if (detail?.livingReport?.status === 'needs_review' || detail?.livingReport?.status === 'published') {
     reportId = detail.livingReport._id;
-    if ((detail.livingSections?.length ?? 0) >= 18) break;
+    if ((detail.livingSections?.length ?? 0) >= 19) break;
   }
-  if (detail?.livingReport?.status === 'published' && (detail.livingSections?.length ?? 0) >= 18) {
+  if (detail?.livingReport?.status === 'published' && (detail.livingSections?.length ?? 0) >= 19) {
     reportId = detail.livingReport._id;
     break;
   }
@@ -87,7 +87,7 @@ for (let i = 0; i < 10; i++) {
   await new Promise((r) => setTimeout(r, 500));
   const living = convexRun('reports:getLivingReport', { caseId });
   const sections = living.sections?.length ?? 0;
-  if (!living.awaitingReview && living.report?.status === 'published' && sections >= 18) {
+  if (!living.awaitingReview && living.report?.status === 'published' && sections >= 19) {
     console.log(`✓ Published living report — ${sections} sections visible to customer`);
     console.log(`  Admin: http://localhost:3000/admin/cases/${caseId}`);
     console.log(`  Customer: http://localhost:3000/report/${caseId}`);

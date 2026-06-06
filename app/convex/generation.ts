@@ -132,7 +132,7 @@ export const generateLiving = internalAction({
         });
       }
 
-      const summary = `Living Report for ${answers.name} — ${route.title}. Updates when your move profile changes.`;
+      const summary = `Lifeport Plan for ${answers.name} — ${route.title}. Updates when your move profile changes.`;
 
       const packageRecommendations = route.packages.map((key) => ({
         packageKey: key,

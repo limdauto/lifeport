@@ -1,4 +1,4 @@
-import { DashboardPreview } from './DashboardPreview';
+import { PlanProductPreview } from './PlanProductPreview';
 
 const steps = [
   {
@@ -15,9 +15,9 @@ const steps = [
   },
   {
     icon: 'execution' as const,
-    title: 'You receive your PDF',
+    title: 'Your Lifeport Plan goes live',
     description:
-      'A personalised Lifeport Plan delivered within 5 working days — ready to act on and share with experts.',
+      'A private, updatable plan with timeline, risk score, expert questions, and setup packages — ready to act on.',
   },
 ];
 
@@ -55,8 +55,8 @@ export function PlannerSection() {
           <span className="planner-tag">Your Lifeport Plan</span>
           <h2 className="text-headline-lg text-on-surface mt-6">One plan. Everything mapped.</h2>
           <p className="text-body-lg text-on-surface-variant mt-4">
-            No app to learn, no dashboard to maintain. You get a clear, personalised PDF plan built
-            for your move — risk map, timeline, and expert-ready summaries included.
+            Your move plan lives in one place — sections, live risk score, inputs that refresh the
+            report, and packages when you want hands-on help.
           </p>
         </div>
 
@@ -74,11 +74,11 @@ export function PlannerSection() {
         </div>
 
         <div className="mx-auto mt-12 max-w-2xl text-center">
-          <p className="text-label-sm text-outline">Preview — pages from a Lifeport Plan PDF</p>
+          <p className="text-label-sm text-outline">Preview — the actual Lifeport Plan experience</p>
         </div>
 
         <div className="mt-6">
-          <DashboardPreview />
+          <PlanProductPreview />
         </div>
       </div>
     </section>

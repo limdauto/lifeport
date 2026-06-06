@@ -1,3 +1,7 @@
+import { type RouteRiskScoringConfig, riskScoringForRoute } from './routeRiskScoring';
+
+export type { FieldRiskScoreConfig, RouteRiskScoringConfig } from './routeRiskScoring';
+
 export type RouteKey =
   | 'uk_to_dubai'
   | 'professionals_to_uk'
@@ -19,6 +23,7 @@ export type PackageKey =
   | 'storage_shipping_plan'
   | 'estate_wills_packet'
   | 'first_90_days_concierge'
+  | 'day_one_arrival_pack'
   | 'school_nursery_setup'
   | 'student_arrival_pack'
   | 'student_document_readiness'
@@ -42,16 +47,17 @@ export type RouteConfig = {
   livingReportFields: string[];
   reportSections: string[];
   packages: PackageKey[];
+  riskScoring: RouteRiskScoringConfig;
 };
 
-export const ROUTE_CONFIGS: RouteConfig[] = [
+const ROUTE_CONFIG_BASE = [
   {
     routeKey: 'uk_to_dubai',
     slug: 'uk-to-dubai',
     title: 'UK to Dubai',
     heroHeadline: 'Moving from the UK to Dubai?',
     heroSubhead:
-      'Start with a free Lifeport Check on the hidden dependencies behind your move — then unlock a Living Report for tax timing, UAE setup, documents, banking, housing, family logistics, pets, storage and your first 90 days.',
+      'Start with a free Lifeport Check on the hidden dependencies behind your move — then unlock a Lifeport Plan for tax timing, UAE setup, documents, banking, housing, family logistics, pets, storage and your first 90 days.',
     painPoints: [
       'Your UK departure date, UK ties and return visits can affect your Statutory Residence Test and split-year position.',
       'A UAE resident setup often depends on a sequence: entry/residence process, medical fitness, Emirates ID, health insurance, banking, tenancy and utilities.',
@@ -156,12 +162,14 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
       'shipping_storage_possessions',
       'property_pension_investments',
       'estate_wills_guardianship',
+      'day_one_arrival',
       'first_90_days',
       'recommended_packages',
       'expert_questions',
       'change_log',
     ],
     packages: [
+      'day_one_arrival_pack',
       'tax_residence_packet',
       'banking_readiness',
       'documents_attestation_pack',
@@ -181,7 +189,7 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
     title: 'Professionals to UK',
     heroHeadline: 'Your company moves your job. Lifeport helps move your life.',
     heroSubhead:
-      'Get a free Lifeport Check on the parts your employer may not handle — then unlock a Living Report for UK arrival, eVisa, banking, housing, healthcare, tax, family, credentials and your first 90 days.',
+      'Get a free Lifeport Check on the parts your employer may not handle — then unlock a Lifeport Plan for UK arrival, eVisa, banking, housing, healthcare, tax, family, credentials and your first 90 days.',
     painPoints: [
       'Your employer may handle the visa sponsorship but not your banking, housing, GP, family, school, driving licence or proof-of-address setup.',
       'The UK immigration-status workflow is now digital-first: UKVI account, eVisa and share codes for right to work and right to rent.',
@@ -280,12 +288,14 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
       'shipping_storage_possessions',
       'tax_residence',
       'estate_wills_guardianship',
+      'day_one_arrival',
       'first_90_days',
       'recommended_packages',
       'expert_questions',
       'change_log',
     ],
     packages: [
+      'day_one_arrival_pack',
       'banking_readiness',
       'housing_readiness',
       'healthcare_setup',
@@ -304,7 +314,7 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
     title: 'Students to UK',
     heroHeadline: 'Starting university in the UK?',
     heroSubhead:
-      'Get a free Lifeport Check for your UK arrival — then unlock a Living Report for CAS, visa, eVisa, accommodation, banking, healthcare, safety, parent funding and your first term.',
+      'Get a free Lifeport Check for your UK arrival — then unlock a Lifeport Plan for CAS, visa, eVisa, accommodation, banking, healthcare, safety, parent funding and your first term.',
     painPoints: [
       'After the offer and CAS, students still need to coordinate visa status, eVisa access, travel, accommodation, banking, GP registration and university enrolment.',
       'UK bank account setup can depend on passport, student visa, proof of address and a university bank letter or student-status letter.',
@@ -405,13 +415,14 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
       'student_safety_scams',
       'family_parent_communication',
       'documents_credentials',
-      'phone_transport_arrival_basics',
+      'day_one_arrival',
       'first_week_first_term',
       'recommended_packages',
       'expert_questions',
       'change_log',
     ],
     packages: [
+      'day_one_arrival_pack',
       'student_arrival_pack',
       'student_document_readiness',
       'banking_readiness',
@@ -428,7 +439,7 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
     title: 'Families to UK',
     heroHeadline: 'Moving your family to the UK?',
     heroSubhead:
-      'Get a free Lifeport Check on the critical path across visas, housing, school, healthcare, money, pets, documents and arrival — then unlock the Living Report for the full family plan.',
+      'Get a free Lifeport Check on the critical path across visas, housing, school, healthcare, money, pets, documents and arrival — then unlock the Lifeport Plan for the full family plan.',
     painPoints: [
       'Family relocation is not one move: the main applicant, partner, children, pets, documents and housing all have different dependencies.',
       'Dependant visa timing can be tied to the main applicant’s route, expiry date and eligibility conditions.',
@@ -528,12 +539,14 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
       'shipping_storage_possessions',
       'tax_residence',
       'estate_wills_guardianship',
+      'day_one_arrival',
       'first_90_days',
       'recommended_packages',
       'expert_questions',
       'change_log',
     ],
     packages: [
+      'day_one_arrival_pack',
       'family_arrival_pack',
       'school_nursery_setup',
       'housing_readiness',
@@ -552,7 +565,7 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
     title: 'Leaving the UK',
     heroHeadline: 'Leaving the UK?',
     heroSubhead:
-      'Get a free Lifeport Check on what may follow you across the border — then unlock a Living Report for tax residence, HMRC, banking, property, pensions, documents, family, pets, storage and your first 90 days abroad.',
+      'Get a free Lifeport Check on what may follow you across the border — then unlock a Lifeport Plan for tax residence, HMRC, banking, property, pensions, documents, family, pets, storage and your first 90 days abroad.',
     painPoints: [
       'Leaving the UK does not automatically make you non-UK resident: the Statutory Residence Test, split-year rules, day counts and UK ties matter.',
       'HMRC departure admin can involve P85, SA109, Self Assessment, PAYE, National Insurance, student loans, benefits and address updates.',
@@ -664,12 +677,14 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
       'family_school_dependants',
       'healthcare_insurance',
       'estate_wills_guardianship',
+      'day_one_arrival',
       'first_90_days',
       'recommended_packages',
       'expert_questions',
       'change_log',
     ],
     packages: [
+      'day_one_arrival_pack',
       'tax_residence_packet',
       'uk_departure_admin_pack',
       'banking_continuity',
@@ -682,7 +697,12 @@ export const ROUTE_CONFIGS: RouteConfig[] = [
       'first_90_days_concierge',
     ],
   },
-];
+] as const satisfies ReadonlyArray<Omit<RouteConfig, 'riskScoring'>>;
+
+export const ROUTE_CONFIGS: RouteConfig[] = ROUTE_CONFIG_BASE.map((route) => ({
+  ...route,
+  riskScoring: riskScoringForRoute(route.routeKey, [...route.checkFields], [...route.livingReportFields]),
+}));
 
 export function getRouteBySlug(slug: string): RouteConfig | undefined {
   return ROUTE_CONFIGS.find((r) => r.slug === slug);
